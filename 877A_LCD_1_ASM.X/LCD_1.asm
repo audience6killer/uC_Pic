@@ -1,0 +1,123 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+;			LCD PROGRAMA UNO
+;
+;   MEDIANTE EL USO DE TABLAS SE REALIZARA UN CONTADOR HEX DE 0 A F    
+;   SIENDO LA DURACION DE CADA DIGITO DE UN SEEGUNDO
+;    
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;   CONFIGURACION DEL PIC.......................................................
+    
+		PROCESSOR	16F877A
+		INCLUDE		<p16f877a.inc>
+		INCLUDE		</home/vill4in/MPLABXProjects/Library.X/RutinasTiempo.asm>
+		__CONFIG	0X3F31
+		ORG		0X0000
+		
+;   CONFIGURACION DE LOS PUERTOS................................................
+		
+		#DEFINE		LCD		PORTD	    ; D4 = RD0, D5 = RD1, ETC 
+		#DEFINE		EN_ON		BSF	    PORTD,5
+		#DEFINE		EN_OFF		BCF	    PORTD,5
+		#DEFINE		RS_ON		BSF	    PORTD,4
+		#DEFINE		RS_OFF		BCF	    PORTD,4
+		CLRF		PORTD
+		BSF		STATUS,RP0
+		CLRF		TRISD		; PORTD (DISPLAY) COMO SALIDA
+		BCF		STATUS,RP0
+		
+;   MACROS......................................................................
+
+ESCRIBIR_CAR	MACRO		CARACTER
+		;	HIGH BYTE
+		MOVLW		CARACTER
+		SWAPF		W,W
+		ANDLW		B'00001111'
+		MOVWF		LCD
+		RS_ON
+		ENABLE_ON
+		RS_OFF
+		
+		;	LOW BYTE	
+		MOVLW		CARACTER
+		ANDLW		B'00001111'
+		MOVWF		PORTD
+		RS_ON
+		ENABLE_ON
+		RS_OFF
+		ENDM
+		
+ESCRIBIR_COM	MACRO		COMANDO
+		;	HIGH BYTE
+		MOVLW		COMANDO
+		SWAPF		W,W
+		ANDLW		B'00001111'
+		MOVWF		LCD
+		RS_OFF
+		ENABLE_ON
+		RS_ON
+		;	LOW BYTE	
+		MOVLW		COMANDO
+		ANDLW		B'00001111'
+		MOVWF		PORTD
+		RS_OFF
+		ENABLE_ON
+		ENDM
+		
+ENABLE_ON	MACRO
+		EN_ON
+		NOP
+		NOP
+		NOP
+		NOP
+		EN_OFF
+		SUBT2V		.8,.35		; 1 ms
+		ENDM
+	
+;   PROGRAMA PRINCIPAL..........................................................
+		
+INIT:		SUBT3V		.5,.38,.37	; 50 ms
+I = 0						; VARIABLE DE COMPILACION
+		WHILE		I < 3
+		MOVLW		B'00000011'
+		MOVWF		LCD
+		EN_ON
+		SUBT3V		.1,.18,.39	; 5 ms
+		EN_OFF
+I += 1
+		ENDW
+		MOVLW		B'00000010'
+		EN_ON
+		SUBT3V		.1,.18,.39
+		EN_OFF
+		;   FUNCTION SET
+		ESCRIBIR_COM	B'00101100'
+		;   DISPLAY OFF
+		ESCRIBIR_COM	B'00001000'
+		;  DISPLAY_CLEAR
+		ESCRIBIR_COM	B'00000001'
+		;   ENTRY MODE SET
+		ESCRIBIR_COM	B'00000110'
+;	FIN DE LA INICIALIZACION
+		
+;	COMIENZO DE ESCRITURA
+		;   FUNCTION SET
+		ESCRIBIR_COM	B'00101100'
+		;   FUNCTION SET
+		ESCRIBIR_COM	B'00101100'
+		;   DISPLAY ON
+		ESCRIBIR_COM	B'00001000'
+		;   MODE SET
+		ESCRIBIR_COM	B'00000110'
+		
+		;   SE ESCRIBE EL CARACTER 'H'
+		ESCRIBIR_CAR	'H'
+		;   DISPLAY ON
+		ESCRIBIR_COM	B'00001000'
+		GOTO		$		
+		
+		END
+
+		
+

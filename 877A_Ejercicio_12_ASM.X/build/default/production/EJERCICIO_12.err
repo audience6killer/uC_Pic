@@ -1,0 +1,4 @@
+Message[302] /home/vill4in/MPLABXProjects/877A_Ejercicio_12_ASM.X/EJERCICIO_12.asm 26 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] /home/vill4in/MPLABXProjects/877A_Ejercicio_12_ASM.X/EJERCICIO_12.asm 27 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Error[113]   /home/vill4in/MPLABXProjects/877A_Ejercicio_12_ASM.X/EJERCICIO_12.asm 35 : Symbol not previously defined (PORTC3_CERO)
+Error[113]   /home/vill4in/MPLABXProjects/877A_Ejercicio_12_ASM.X/EJERCICIO_12.asm 36 : Symbol not previously defined (PORTC3_UNO)

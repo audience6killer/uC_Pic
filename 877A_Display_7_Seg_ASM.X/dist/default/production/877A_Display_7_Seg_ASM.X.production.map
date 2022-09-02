@@ -1,0 +1,44 @@
+MPLINK 5.08, LINKER
+Linker Map File - Created Tue Aug  9 04:37:17 2022
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000050
+                   .cinit    romdata   0x000028    program   0x000004
+                   .org_1       code   0x000080    program   0x000022
+.config_2007_BUILD/DEFAULT/PRODUCTION/SIETESE       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000029      
+                            0x000080    0x000090      
+                            0x002007    0x002007      
+            60 out of 8454 program addresses used, program memory utilization is 0%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   REPITE   0x000008    program     static /home/vill4in/MPLABXProjects/877A_Display_7_Seg_ASM.X/SIETESEG.asm
+            TABLA_DIGITOS   0x000080    program     static /home/vill4in/MPLABXProjects/877A_Display_7_Seg_ASM.X/SIETESEG.asm
+                _1DECRE3V   0x000015    program     static /home/vill4in/MPLABXProjects/877A_Display_7_Seg_ASM.X/SIETESEG.asm
+              _1RECARGA3V   0x000013    program     static /home/vill4in/MPLABXProjects/877A_Display_7_Seg_ASM.X/SIETESEG.asm
+                   _1ST3V   0x000011    program     static /home/vill4in/MPLABXProjects/877A_Display_7_Seg_ASM.X/SIETESEG.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   REPITE   0x000008    program     static /home/vill4in/MPLABXProjects/877A_Display_7_Seg_ASM.X/SIETESEG.asm
+                   _1ST3V   0x000011    program     static /home/vill4in/MPLABXProjects/877A_Display_7_Seg_ASM.X/SIETESEG.asm
+              _1RECARGA3V   0x000013    program     static /home/vill4in/MPLABXProjects/877A_Display_7_Seg_ASM.X/SIETESEG.asm
+                _1DECRE3V   0x000015    program     static /home/vill4in/MPLABXProjects/877A_Display_7_Seg_ASM.X/SIETESEG.asm
+            TABLA_DIGITOS   0x000080    program     static /home/vill4in/MPLABXProjects/877A_Display_7_Seg_ASM.X/SIETESEG.asm
+
+

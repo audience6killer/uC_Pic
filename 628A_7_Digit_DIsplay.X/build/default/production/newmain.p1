@@ -1,0 +1,949 @@
+Version 4.0 HI-TECH Software Intermediate Code
+[p mainexit ]
+"774 /opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 774:     struct {
+[s S29 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S29 . CM CIS C1INV C2INV C1OUT C2OUT ]
+"782
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 782:     struct {
+[s S30 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S30 . CM0 CM1 CM2 ]
+"773
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 773: typedef union {
+[u S28 `S29 1 `S30 1 ]
+[n S28 . . . ]
+"788
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 788: extern volatile CMCONbits_t CMCONbits __attribute__((address(0x01F)));
+[v _CMCONbits `VS28 ~T0 @X0 0 e@31 ]
+"970
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 970: extern volatile unsigned char TRISB __attribute__((address(0x086)));
+[v _TRISB `Vuc ~T0 @X0 0 e@134 ]
+"914
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 914:     struct {
+[s S35 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S35 . TRISA0 TRISA1 TRISA2 TRISA3 TRISA4 TRISA5 TRISA6 TRISA7 ]
+"913
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 913: typedef union {
+[u S34 `S35 1 ]
+[n S34 . . ]
+"925
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 925: extern volatile TRISAbits_t TRISAbits __attribute__((address(0x085)));
+[v _TRISAbits `VS34 ~T0 @X0 0 e@133 ]
+"82 newmain.c
+[; ;newmain.c: 82: 
+[s S54 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
+[n S54 DigitosTresDecimal unidades decimas centesimas milesimas PUNTO ]
+"117
+[; ;newmain.c: 117: 
+[v _digitosTresDecimal `(S54 ~T0 @X0 0 ef1`Cf ]
+"144
+[; ;newmain.c: 144:                     else
+[c E498 0 1 2 3 .. ]
+[n E498 ENABLE Di1 Di2 Di3 Di4  ]
+"93
+[; ;newmain.c: 93:     TRISAbits.TRISA0 = 0;
+[v _display `(v ~T0 @X0 0 ef2`uc`E498 ]
+[v F36 `(v ~T0 @X0 1 tf1`ul ]
+"12 /opt/microchip/xc8/v2.35/pic/include/builtins.h
+[v __delay `JF36 ~T0 @X0 0 e ]
+[p i __delay ]
+"173 /opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 173:     struct {
+[s S6 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S6 . RA0 RA1 RA2 RA3 RA4 RA5 RA6 RA7 ]
+"172
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 172: typedef union {
+[u S5 `S6 1 ]
+[n S5 . . ]
+"184
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 184: extern volatile PORTAbits_t PORTAbits __attribute__((address(0x005)));
+[v _PORTAbits `VS5 ~T0 @X0 0 e@5 ]
+"229
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 229: extern volatile unsigned char PORTB __attribute__((address(0x006)));
+[v _PORTB `Vuc ~T0 @X0 0 e@6 ]
+"47 newmain.c
+[; ;newmain.c: 47: 
+[s S51 `uc 1 `uc 1 `uc 1 `uc 1 ]
+[n S51 DigitosEntero millares centenas decenas unidades ]
+"58
+[; ;newmain.c: 58: 
+[s S52 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
+[n S52 DigitosUnDecimal centenas decenas unidades decimas PUNTO ]
+"70
+[; ;newmain.c: 70: 
+[s S53 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
+[n S53 DigitosDosDecimal decenas unidades decimas centesimas PUNTO ]
+"55 /opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 55: __asm("INDF equ 00h");
+[; <" INDF equ 00h ;# ">
+"62
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 62: __asm("TMR0 equ 01h");
+[; <" TMR0 equ 01h ;# ">
+"69
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 69: __asm("PCL equ 02h");
+[; <" PCL equ 02h ;# ">
+"76
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 76: __asm("STATUS equ 03h");
+[; <" STATUS equ 03h ;# ">
+"162
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 162: __asm("FSR equ 04h");
+[; <" FSR equ 04h ;# ">
+"169
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 169: __asm("PORTA equ 05h");
+[; <" PORTA equ 05h ;# ">
+"231
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 231: __asm("PORTB equ 06h");
+[; <" PORTB equ 06h ;# ">
+"293
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 293: __asm("PCLATH equ 0Ah");
+[; <" PCLATH equ 0Ah ;# ">
+"313
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 313: __asm("INTCON equ 0Bh");
+[; <" INTCON equ 0Bh ;# ">
+"391
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 391: __asm("PIR1 equ 0Ch");
+[; <" PIR1 equ 0Ch ;# ">
+"448
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 448: __asm("TMR1 equ 0Eh");
+[; <" TMR1 equ 0Eh ;# ">
+"455
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 455: __asm("TMR1L equ 0Eh");
+[; <" TMR1L equ 0Eh ;# ">
+"462
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 462: __asm("TMR1H equ 0Fh");
+[; <" TMR1H equ 0Fh ;# ">
+"469
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 469: __asm("T1CON equ 010h");
+[; <" T1CON equ 010h ;# ">
+"528
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 528: __asm("TMR2 equ 011h");
+[; <" TMR2 equ 011h ;# ">
+"535
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 535: __asm("T2CON equ 012h");
+[; <" T2CON equ 012h ;# ">
+"606
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 606: __asm("CCPR1 equ 015h");
+[; <" CCPR1 equ 015h ;# ">
+"613
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 613: __asm("CCPR1L equ 015h");
+[; <" CCPR1L equ 015h ;# ">
+"620
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 620: __asm("CCPR1H equ 016h");
+[; <" CCPR1H equ 016h ;# ">
+"627
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 627: __asm("CCP1CON equ 017h");
+[; <" CCP1CON equ 017h ;# ">
+"685
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 685: __asm("RCSTA equ 018h");
+[; <" RCSTA equ 018h ;# ">
+"756
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 756: __asm("TXREG equ 019h");
+[; <" TXREG equ 019h ;# ">
+"763
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 763: __asm("RCREG equ 01Ah");
+[; <" RCREG equ 01Ah ;# ">
+"770
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 770: __asm("CMCON equ 01Fh");
+[; <" CMCON equ 01Fh ;# ">
+"840
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 840: __asm("OPTION_REG equ 081h");
+[; <" OPTION_REG equ 081h ;# ">
+"910
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 910: __asm("TRISA equ 085h");
+[; <" TRISA equ 085h ;# ">
+"972
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 972: __asm("TRISB equ 086h");
+[; <" TRISB equ 086h ;# ">
+"1034
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1034: __asm("PIE1 equ 08Ch");
+[; <" PIE1 equ 08Ch ;# ">
+"1091
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1091: __asm("PCON equ 08Eh");
+[; <" PCON equ 08Eh ;# ">
+"1140
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1140: __asm("PR2 equ 092h");
+[; <" PR2 equ 092h ;# ">
+"1147
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1147: __asm("TXSTA equ 098h");
+[; <" TXSTA equ 098h ;# ">
+"1204
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1204: __asm("SPBRG equ 099h");
+[; <" SPBRG equ 099h ;# ">
+"1211
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1211: __asm("EEDATA equ 09Ah");
+[; <" EEDATA equ 09Ah ;# ">
+"1218
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1218: __asm("EEADR equ 09Bh");
+[; <" EEADR equ 09Bh ;# ">
+"1225
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1225: __asm("EECON1 equ 09Ch");
+[; <" EECON1 equ 09Ch ;# ">
+"1263
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1263: __asm("EECON2 equ 09Dh");
+[; <" EECON2 equ 09Dh ;# ">
+"1270
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1270: __asm("VRCON equ 09Fh");
+[; <" VRCON equ 09Fh ;# ">
+"13 newmain.c
+[; ;newmain.c: 13: 
+[p x FOSC  =  XT ]
+"14
+[; ;newmain.c: 14: struct DigitosEntero
+[p x MCLRE  =  OFF ]
+"15
+[; ;newmain.c: 15: {
+[p x WDTE  =  OFF ]
+"16
+[; ;newmain.c: 16:     unsigned char millares;
+[p x PWRTE  =  OFF ]
+"17
+[; ;newmain.c: 17:     unsigned char centenas;
+[p x BOREN  =  OFF ]
+"18
+[; ;newmain.c: 18:     unsigned char decenas;
+[p x LVP  =  OFF ]
+"19
+[; ;newmain.c: 19:     unsigned char unidades;
+[p x CPD  =  OFF ]
+"20
+[; ;newmain.c: 20: };
+[p x CP  =  OFF ]
+"35
+[; ;newmain.c: 35: 
+[v _DIGITOS `Cuc ~T0 @X0 -> 11 `i e ]
+[i _DIGITOS
+:U ..
+-> -> 63 `i `uc
+-> -> 6 `i `uc
+-> -> 91 `i `uc
+-> -> 79 `i `uc
+-> -> 102 `i `uc
+-> -> 109 `i `uc
+-> -> 125 `i `uc
+-> -> 7 `i `uc
+-> -> 127 `i `uc
+-> -> 111 `i `uc
+-> -> 128 `i `uc
+..
+]
+[v $root$_main `(v ~T0 @X0 0 e ]
+"121
+[; ;newmain.c: 121:                     display(digitos.milesimas, Di4);
+[v _main `(v ~T0 @X0 1 ef ]
+{
+[e :U _main ]
+[f ]
+"123
+[; ;newmain.c: 123: 
+[e = . . _CMCONbits 0 0 -> -> 7 `i `uc ]
+"124
+[; ;newmain.c: 124:                     display(digitos.PUNTO, Di1);
+[e = _TRISB -> -> 0 `i `uc ]
+"125
+[; ;newmain.c: 125:                     _delay((unsigned long)((1)*(4000000/4000.0)));
+[e = . . _TRISAbits 0 0 -> -> 0 `i `uc ]
+"126
+[; ;newmain.c: 126: 
+[e = . . _TRISAbits 0 1 -> -> 0 `i `uc ]
+"127
+[; ;newmain.c: 127:                 }
+[e = . . _TRISAbits 0 2 -> -> 0 `i `uc ]
+"128
+[; ;newmain.c: 128:                 else
+[e = . . _TRISAbits 0 3 -> -> 0 `i `uc ]
+"132
+[; ;newmain.c: 132:                         display(digitos.PUNTO, Di1);
+[e :U 57 ]
+"133
+[; ;newmain.c: 133:                         _delay((unsigned long)((1)*(4000000/4000.0)));
+{
+"134
+[; ;newmain.c: 134: 
+[v _numero `f ~T0 @X0 1 a ]
+[e = _numero -> .0.001 `f ]
+"136
+[; ;newmain.c: 136:                         _delay((unsigned long)((1)*(4000000/4000.0)));
+{
+[v _j `uc ~T0 @X0 1 a ]
+[e = _j -> -> 0 `i `uc ]
+[e $ <= -> _j `i -> 2000 `i 59  ]
+[e $U 60  ]
+[e :U 59 ]
+"137
+[; ;newmain.c: 137: 
+{
+"138
+[; ;newmain.c: 138:                         display(digitos.centesimas, Di3);
+[v _digitos `S54 ~T0 @X0 1 a ]
+[e = _digitos ( _digitosTresDecimal (1 _numero ]
+"140
+[; ;newmain.c: 140: 
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 25 `i 62  ]
+[e $U 63  ]
+[e :U 62 ]
+"141
+[; ;newmain.c: 141:                         display(digitos.milesimas, Di4);
+{
+"142
+[; ;newmain.c: 142:                         _delay((unsigned long)((2)*(4000000/4000.0)));
+[e $ ! != -> . _digitos 0 `i -> 0 `i 65  ]
+"143
+[; ;newmain.c: 143:                     }
+{
+"144
+[; ;newmain.c: 144:                     else
+[e ( _display (2 , . _digitos 0 . `E498 0 ]
+"145
+[; ;newmain.c: 145:                     {
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"147
+[; ;newmain.c: 147:                         {
+[e ( _display (2 , . _digitos 1 . `E498 1 ]
+"148
+[; ;newmain.c: 148:                             display(digitos.PUNTO, Di1);
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"150
+[; ;newmain.c: 150: 
+[e ( _display (2 , . _digitos 2 . `E498 2 ]
+"151
+[; ;newmain.c: 151:                             display(digitos.centesimas, Di3);
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"153
+[; ;newmain.c: 153: 
+[e ( _display (2 , . _digitos 3 . `E498 3 ]
+"154
+[; ;newmain.c: 154:                             display(digitos.milesimas, Di4);
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"156
+[; ;newmain.c: 156:                         }
+[e ( _display (2 , . _digitos 4 . `E498 0 ]
+"157
+[; ;newmain.c: 157:                         else
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"159
+[; ;newmain.c: 159:                             display(digitos.PUNTO, Di1);
+}
+[e $U 66  ]
+"160
+[; ;newmain.c: 160:                             _delay((unsigned long)((3)*(4000000/4000.0)));
+[e :U 65 ]
+"161
+[; ;newmain.c: 161: 
+{
+"162
+[; ;newmain.c: 162:                             display(digitos.milesimas, Di4);
+[e $ ! != -> . _digitos 1 `i -> 0 `i 67  ]
+"163
+[; ;newmain.c: 163:                             _delay((unsigned long)((2)*(4000000/4000.0)));
+{
+"164
+[; ;newmain.c: 164:                         }
+[e ( _display (2 , . _digitos 4 . `E498 0 ]
+"165
+[; ;newmain.c: 165:                     }
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"167
+[; ;newmain.c: 167: 
+[e ( _display (2 , . _digitos 1 . `E498 1 ]
+"168
+[; ;newmain.c: 168:             }
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"170
+[; ;newmain.c: 170:         }
+[e ( _display (2 , . _digitos 2 . `E498 2 ]
+"171
+[; ;newmain.c: 171: 
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"173
+[; ;newmain.c: 173:     }
+[e ( _display (2 , . _digitos 3 . `E498 3 ]
+"174
+[; ;newmain.c: 174:     return;
+[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"175
+[; ;newmain.c: 175: }
+}
+[e $U 68  ]
+"176
+[; ;newmain.c: 176: 
+[e :U 67 ]
+"177
+[; ;newmain.c: 177: 
+{
+"178
+[; ;newmain.c: 178: 
+[e $ ! != -> . _digitos 2 `i -> 0 `i 69  ]
+"179
+[; ;newmain.c: 179: 
+{
+"180
+[; ;newmain.c: 180: 
+[e ( _display (2 , . _digitos 4 . `E498 0 ]
+"181
+[; ;newmain.c: 181: void display(const unsigned char digito, enum ENABLE noDigito)
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"183
+[; ;newmain.c: 183:     unsigned char digitoElegido;
+[e ( _display (2 , . _digitos 2 . `E498 2 ]
+"184
+[; ;newmain.c: 184: 
+[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"186
+[; ;newmain.c: 186:     PORTAbits.RA1 = 0;
+[e ( _display (2 , . _digitos 3 . `E498 3 ]
+"187
+[; ;newmain.c: 187:     PORTAbits.RA2 = 0;
+[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"188
+[; ;newmain.c: 188:     PORTAbits.RA3 = 0;
+}
+[e $U 70  ]
+"189
+[; ;newmain.c: 189: 
+[e :U 69 ]
+"190
+[; ;newmain.c: 190:     switch(digito)
+{
+"191
+[; ;newmain.c: 191:     {
+[e ( _display (2 , . _digitos 4 . `E498 0 ]
+"192
+[; ;newmain.c: 192:         case 0: digitoElegido = DIGITOS[0];
+[e ( __delay (1 -> * -> -> 3 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"194
+[; ;newmain.c: 194:         case 1: digitoElegido = DIGITOS[1];
+[e ( _display (2 , . _digitos 3 . `E498 3 ]
+"195
+[; ;newmain.c: 195:                 break;
+[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"196
+[; ;newmain.c: 196:         case 2: digitoElegido = DIGITOS[2];
+}
+[e :U 70 ]
+"197
+[; ;newmain.c: 197:                 break;
+}
+[e :U 68 ]
+"198
+[; ;newmain.c: 198:         case 3: digitoElegido = DIGITOS[3];
+}
+[e :U 66 ]
+"200
+[; ;newmain.c: 200:         case 4: digitoElegido = DIGITOS[4];
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 25 `i 62  ]
+[e :U 63 ]
+}
+"201
+[; ;newmain.c: 201:                 break;
+[e = _numero + _numero -> .0.001 `f ]
+"202
+[; ;newmain.c: 202:         case 5: digitoElegido = DIGITOS[5];
+}
+[e ++ _j -> -> 1 `i `uc ]
+[e $ <= -> _j `i -> 2000 `i 59  ]
+[e :U 60 ]
+}
+"205
+[; ;newmain.c: 205:                 break;
+}
+[e :U 56 ]
+[e $U 57  ]
+[e :U 58 ]
+"206
+[; ;newmain.c: 206:         case 7: digitoElegido = DIGITOS[7];
+[e $UE 55  ]
+"207
+[; ;newmain.c: 207:                 break;
+[e :UE 55 ]
+}
+"213
+[; ;newmain.c: 213:                 break;
+[v _display `(v ~T0 @X0 1 ef2`uc`E498 ]
+"214
+[; ;newmain.c: 214:         default: break;
+{
+[e :U _display ]
+"213
+[; ;newmain.c: 213:                 break;
+[v _digito `Cuc ~T0 @X0 1 r1 ]
+[v _noDigito `E498 ~T0 @X0 1 r2 ]
+"214
+[; ;newmain.c: 214:         default: break;
+[f ]
+"215
+[; ;newmain.c: 215:     };
+[v _digitoElegido `uc ~T0 @X0 1 a ]
+"217
+[; ;newmain.c: 217:     switch(noDigito)
+[e = . . _PORTAbits 0 0 -> -> 0 `i `uc ]
+"218
+[; ;newmain.c: 218:     {
+[e = . . _PORTAbits 0 1 -> -> 0 `i `uc ]
+"219
+[; ;newmain.c: 219:         case Di1: PORTAbits.RA0 = 1;
+[e = . . _PORTAbits 0 2 -> -> 0 `i `uc ]
+"220
+[; ;newmain.c: 220:         break;
+[e = . . _PORTAbits 0 3 -> -> 0 `i `uc ]
+"222
+[; ;newmain.c: 222:         break;
+[e $U 73  ]
+"223
+[; ;newmain.c: 223:         case Di3: PORTAbits.RA2 = 1;
+{
+"224
+[; ;newmain.c: 224:         break;
+[e :U 74 ]
+[e = _digitoElegido *U + &U _DIGITOS * -> -> -> 0 `i `ui `ux -> -> # *U &U _DIGITOS `ui `ux ]
+"225
+[; ;newmain.c: 225:         case Di4: PORTAbits.RA3 = 1;
+[e $U 72  ]
+"226
+[; ;newmain.c: 226:         break;
+[e :U 75 ]
+[e = _digitoElegido *U + &U _DIGITOS * -> -> -> 1 `i `ui `ux -> -> # *U &U _DIGITOS `ui `ux ]
+"227
+[; ;newmain.c: 227:         default: break;
+[e $U 72  ]
+"228
+[; ;newmain.c: 228:     };
+[e :U 76 ]
+[e = _digitoElegido *U + &U _DIGITOS * -> -> -> 2 `i `ui `ux -> -> # *U &U _DIGITOS `ui `ux ]
+"229
+[; ;newmain.c: 229: 
+[e $U 72  ]
+"230
+[; ;newmain.c: 230:     PORTB = digitoElegido;
+[e :U 77 ]
+[e = _digitoElegido *U + &U _DIGITOS * -> -> -> 3 `i `ui `ux -> -> # *U &U _DIGITOS `ui `ux ]
+"231
+[; ;newmain.c: 231: 
+[e $U 72  ]
+"232
+[; ;newmain.c: 232: }
+[e :U 78 ]
+[e = _digitoElegido *U + &U _DIGITOS * -> -> -> 4 `i `ui `ux -> -> # *U &U _DIGITOS `ui `ux ]
+"233
+[; ;newmain.c: 233: struct DigitosEntero digitosEntero(const unsigned int entero)
+[e $U 72  ]
+"234
+[; ;newmain.c: 234: {
+[e :U 79 ]
+[e = _digitoElegido *U + &U _DIGITOS * -> -> -> 5 `i `ui `ux -> -> # *U &U _DIGITOS `ui `ux ]
+"235
+[; ;newmain.c: 235: 
+[e $U 72  ]
+"236
+[; ;newmain.c: 236: 
+[e :U 80 ]
+[e = _digitoElegido *U + &U _DIGITOS * -> -> -> 6 `i `ui `ux -> -> # *U &U _DIGITOS `ui `ux ]
+"237
+[; ;newmain.c: 237:     unsigned char millares = entero / (const unsigned int)1000;
+[e $U 72  ]
+"238
+[; ;newmain.c: 238:     unsigned int resto = entero % 1000;
+[e :U 81 ]
+[e = _digitoElegido *U + &U _DIGITOS * -> -> -> 7 `i `ui `ux -> -> # *U &U _DIGITOS `ui `ux ]
+"239
+[; ;newmain.c: 239: 
+[e $U 72  ]
+"240
+[; ;newmain.c: 240: 
+[e :U 82 ]
+[e = _digitoElegido *U + &U _DIGITOS * -> -> -> 8 `i `ui `ux -> -> # *U &U _DIGITOS `ui `ux ]
+"241
+[; ;newmain.c: 241:     unsigned char centenas = (unsigned char)(resto / (const unsigned int)100);
+[e $U 72  ]
+"242
+[; ;newmain.c: 242:     resto = resto % 100;
+[e :U 83 ]
+[e = _digitoElegido *U + &U _DIGITOS * -> -> -> 9 `i `ui `ux -> -> # *U &U _DIGITOS `ui `ux ]
+"243
+[; ;newmain.c: 243: 
+[e $U 72  ]
+"244
+[; ;newmain.c: 244: 
+[e :U 84 ]
+[e = _digitoElegido *U + &U _DIGITOS * -> -> -> 10 `i `ui `ux -> -> # *U &U _DIGITOS `ui `ux ]
+"245
+[; ;newmain.c: 245:     unsigned char decenas = (unsigned char)(resto / (const unsigned int)10);
+[e $U 72  ]
+"246
+[; ;newmain.c: 246:     resto = resto % (const unsigned int)10;
+[e :U 85 ]
+[e $U 72  ]
+"247
+[; ;newmain.c: 247: 
+}
+[e $U 72  ]
+[e :U 73 ]
+[e [\ -> _digito `i , $ -> 0 `i 74
+ , $ -> 1 `i 75
+ , $ -> 2 `i 76
+ , $ -> 3 `i 77
+ , $ -> 4 `i 78
+ , $ -> 5 `i 79
+ , $ -> 6 `i 80
+ , $ -> 7 `i 81
+ , $ -> 8 `i 82
+ , $ -> 9 `i 83
+ , $ -> 128 `i 84
+ 85 ]
+[e :U 72 ]
+"249
+[; ;newmain.c: 249:     unsigned char unidades = (unsigned char)resto;
+[e $U 87  ]
+"250
+[; ;newmain.c: 250: 
+{
+"251
+[; ;newmain.c: 251:     struct DigitosEntero digitos = {millares, centenas, decenas, unidades};
+[e :U 88 ]
+[e = . . _PORTAbits 0 0 -> -> 1 `i `uc ]
+"252
+[; ;newmain.c: 252: 
+[e $U 86  ]
+"253
+[; ;newmain.c: 253:     return digitos;
+[e :U 89 ]
+[e = . . _PORTAbits 0 1 -> -> 1 `i `uc ]
+"254
+[; ;newmain.c: 254: 
+[e $U 86  ]
+"255
+[; ;newmain.c: 255: }
+[e :U 90 ]
+[e = . . _PORTAbits 0 2 -> -> 1 `i `uc ]
+"256
+[; ;newmain.c: 256: struct DigitosUnDecimal digitosUnDecimal(const float decimal)
+[e $U 86  ]
+"257
+[; ;newmain.c: 257: {
+[e :U 91 ]
+[e = . . _PORTAbits 0 3 -> -> 1 `i `uc ]
+"258
+[; ;newmain.c: 258:     struct DigitosUnDecimal miDecimal;
+[e $U 86  ]
+"259
+[; ;newmain.c: 259: 
+[e :U 92 ]
+[e $U 86  ]
+"260
+[; ;newmain.c: 260:     miDecimal.PUNTO = 128;
+}
+[e $U 86  ]
+[e :U 87 ]
+[e [\ -> _noDigito `ui , $ -> . `E498 0 `ui 88
+ , $ -> . `E498 1 `ui 89
+ , $ -> . `E498 2 `ui 90
+ , $ -> . `E498 3 `ui 91
+ 92 ]
+[e :U 86 ]
+"262
+[; ;newmain.c: 262:     if(decimal < 999.9 && decimal >= 0)
+[e = _PORTB _digitoElegido ]
+"264
+[; ;newmain.c: 264:         unsigned int resto = decimal * (const float)10.0;
+[e :UE 71 ]
+}
+"265
+[; ;newmain.c: 265: 
+[v _digitosEntero `(S51 ~T0 @X0 1 ef1`Cui ]
+"266
+[; ;newmain.c: 266: 
+{
+[e :U _digitosEntero ]
+"265
+[; ;newmain.c: 265: 
+[v _entero `Cui ~T0 @X0 1 r1 ]
+"266
+[; ;newmain.c: 266: 
+[f ]
+"269
+[; ;newmain.c: 269: 
+[v _millares `uc ~T0 @X0 1 a ]
+[e = _millares -> / _entero -> -> 1000 `i `ui `uc ]
+"270
+[; ;newmain.c: 270: 
+[v _resto `ui ~T0 @X0 1 a ]
+[e = _resto % _entero -> -> 1000 `i `ui ]
+"273
+[; ;newmain.c: 273: 
+[v _centenas `uc ~T0 @X0 1 a ]
+[e = _centenas -> / _resto -> -> 100 `i `ui `uc ]
+"274
+[; ;newmain.c: 274: 
+[e = _resto % _resto -> -> 100 `i `ui ]
+"277
+[; ;newmain.c: 277: 
+[v _decenas `uc ~T0 @X0 1 a ]
+[e = _decenas -> / _resto -> -> 10 `i `ui `uc ]
+"278
+[; ;newmain.c: 278: 
+[e = _resto % _resto -> -> 10 `i `ui ]
+"281
+[; ;newmain.c: 281:     else
+[v _unidades `uc ~T0 @X0 1 a ]
+[e = _unidades -> _resto `uc ]
+[v F553 `S51 ~T0 @X0 1 s ]
+[i F553
+:U ..
+:U ..
+"283
+[; ;newmain.c: 283:         miDecimal.centenas = 0;
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+-> -> 0 `i `uc
+..
+..
+]
+[v _digitos `S51 ~T0 @X0 1 a ]
+[e = _digitos F553 ]
+[e ; = . _digitos 0 _millares ; = . _digitos 1 _centenas ; = . _digitos 2 _decenas = . _digitos 3 _unidades ]
+"285
+[; ;newmain.c: 285:         miDecimal.unidades = 0;
+[e ) _digitos ]
+[e $UE 93  ]
+"287
+[; ;newmain.c: 287: 
+[e :UE 93 ]
+}
+"288
+[; ;newmain.c: 288:     }
+[v _digitosUnDecimal `(S52 ~T0 @X0 1 ef1`Cf ]
+"289
+[; ;newmain.c: 289: 
+{
+[e :U _digitosUnDecimal ]
+"288
+[; ;newmain.c: 288:     }
+[v _decimal `Cf ~T0 @X0 1 r1 ]
+"289
+[; ;newmain.c: 289: 
+[f ]
+"290
+[; ;newmain.c: 290:     return miDecimal;
+[v _miDecimal `S52 ~T0 @X0 1 a ]
+"292
+[; ;newmain.c: 292: 
+[e = . _miDecimal 4 -> -> 128 `i `uc ]
+"294
+[; ;newmain.c: 294: {
+[e $ ! && < -> _decimal `d .999.9 >= _decimal -> -> 0 `i `f 95  ]
+"295
+[; ;newmain.c: 295:     struct DigitosDosDecimal miDecimal;
+{
+"296
+[; ;newmain.c: 296: 
+[v _resto `ui ~T0 @X0 1 a ]
+[e = _resto -> * _decimal -> .10.0 `f `ui ]
+"299
+[; ;newmain.c: 299:     if(decimal < 99.99 && decimal >= 0)
+[e = . _miDecimal 0 -> / _resto -> -> 1000 `i `ui `uc ]
+"300
+[; ;newmain.c: 300:     {
+[e = _resto % _resto -> -> 1000 `i `ui ]
+"303
+[; ;newmain.c: 303: 
+[e = . _miDecimal 1 -> / _resto -> -> 100 `i `ui `uc ]
+"304
+[; ;newmain.c: 304:         miDecimal.decenas = (unsigned char)(resto / (const unsigned int)1000);
+[e = _resto % _resto -> -> 100 `i `ui ]
+"307
+[; ;newmain.c: 307: 
+[e = . _miDecimal 2 -> / _resto -> -> 10 `i `ui `uc ]
+"308
+[; ;newmain.c: 308:         miDecimal.unidades = (unsigned char)(resto / (const unsigned int)100);
+[e = _resto % _resto -> -> 10 `i `ui ]
+"311
+[; ;newmain.c: 311: 
+[e = . _miDecimal 3 -> _resto `uc ]
+"312
+[; ;newmain.c: 312:         miDecimal.decimas = (unsigned char)(resto / (const unsigned int)10);
+}
+[e $U 96  ]
+"313
+[; ;newmain.c: 313:         resto = resto % 10;
+[e :U 95 ]
+"314
+[; ;newmain.c: 314: 
+{
+"315
+[; ;newmain.c: 315: 
+[e = . _miDecimal 0 -> -> 0 `i `uc ]
+"316
+[; ;newmain.c: 316:         miDecimal.centesimas = (unsigned char)resto;
+[e = . _miDecimal 1 -> -> 0 `i `uc ]
+"317
+[; ;newmain.c: 317:     }
+[e = . _miDecimal 2 -> -> 0 `i `uc ]
+"318
+[; ;newmain.c: 318:     else
+[e = . _miDecimal 3 -> -> 0 `i `uc ]
+"320
+[; ;newmain.c: 320:         miDecimal.decenas = 0;
+}
+[e :U 96 ]
+"322
+[; ;newmain.c: 322:         miDecimal.decimas = 0;
+[e ) _miDecimal ]
+[e $UE 94  ]
+"323
+[; ;newmain.c: 323:         miDecimal.centesimas = 0;
+[e :UE 94 ]
+}
+"325
+[; ;newmain.c: 325: 
+[v _digitosDosDecimal `(S53 ~T0 @X0 1 ef1`Cf ]
+"326
+[; ;newmain.c: 326:     return miDecimal;
+{
+[e :U _digitosDosDecimal ]
+"325
+[; ;newmain.c: 325: 
+[v _decimal `Cf ~T0 @X0 1 r1 ]
+"326
+[; ;newmain.c: 326:     return miDecimal;
+[f ]
+"327
+[; ;newmain.c: 327: 
+[v _miDecimal `S53 ~T0 @X0 1 a ]
+"329
+[; ;newmain.c: 329: struct DigitosTresDecimal digitosTresDecimal(const float decimal)
+[e = . _miDecimal 4 -> -> 128 `i `uc ]
+"331
+[; ;newmain.c: 331:     struct DigitosTresDecimal miDecimal;
+[e $ ! && < -> _decimal `d .99.99 >= _decimal -> -> 0 `i `f 98  ]
+"332
+[; ;newmain.c: 332: 
+{
+"333
+[; ;newmain.c: 333:     miDecimal.PUNTO = 128; int resto = decimal * (const float)1000.0;
+[v _resto `ui ~T0 @X0 1 a ]
+[e = _resto -> * _decimal -> .100.0 `f `ui ]
+"336
+[; ;newmain.c: 336:     if(decimal < 9.999 && decimal >= 0)
+[e = . _miDecimal 0 -> / _resto -> -> 1000 `i `ui `uc ]
+"337
+[; ;newmain.c: 337:     {
+[e = _resto % _resto -> -> 1000 `i `ui ]
+"340
+[; ;newmain.c: 340: 
+[e = . _miDecimal 1 -> / _resto -> -> 100 `i `ui `uc ]
+"341
+[; ;newmain.c: 341:         miDecimal.unidades = (unsigned char)(resto / (const unsigned int)1000);
+[e = _resto % _resto -> -> 100 `i `ui ]
+"344
+[; ;newmain.c: 344: 
+[e = . _miDecimal 2 -> / _resto -> -> 10 `i `ui `uc ]
+"345
+[; ;newmain.c: 345:         miDecimal.decimas = (unsigned char)(resto / (const unsigned int)100);
+[e = _resto % _resto -> -> 10 `i `ui ]
+"348
+[; ;newmain.c: 348: 
+[e = . _miDecimal 3 -> _resto `uc ]
+"349
+[; ;newmain.c: 349:         miDecimal.centesimas = (unsigned char)(resto / (const unsigned int)10);
+}
+[e $U 99  ]
+"350
+[; ;newmain.c: 350:         resto = resto % 10;
+[e :U 98 ]
+"351
+[; ;newmain.c: 351: 
+{
+"352
+[; ;newmain.c: 352: 
+[e = . _miDecimal 0 -> -> 0 `i `uc ]
+"353
+[; ;newmain.c: 353:         miDecimal.milesimas = (unsigned char)resto;
+[e = . _miDecimal 1 -> -> 0 `i `uc ]
+"354
+[; ;newmain.c: 354:     }
+[e = . _miDecimal 2 -> -> 0 `i `uc ]
+"355
+[; ;newmain.c: 355:     else
+[e = . _miDecimal 3 -> -> 0 `i `uc ]
+"356
+[; ;newmain.c: 356:     {
+}
+[e :U 99 ]
+"358
+[; ;newmain.c: 358:         miDecimal.decimas = 0;
+[e ) _miDecimal ]
+[e $UE 97  ]
+"360
+[; ;newmain.c: 360:         miDecimal.milesimas = 0;
+[e :UE 97 ]
+}
+"361
+[; ;newmain.c: 361:     }
+[v _digitosTresDecimal `(S54 ~T0 @X0 1 ef1`Cf ]
+"362
+[; ;newmain.c: 362: 
+{
+[e :U _digitosTresDecimal ]
+"361
+[; ;newmain.c: 361:     }
+[v _decimal `Cf ~T0 @X0 1 r1 ]
+"362
+[; ;newmain.c: 362: 
+[f ]
+"363
+[; ;newmain.c: 363:     return miDecimal;
+[v _miDecimal `S54 ~T0 @X0 1 a ]
+"365
+[e = . _miDecimal 4 -> -> 128 `i `uc ]
+[v _resto `i ~T0 @X0 1 a ]
+[e = _resto -> * _decimal -> .1000.0 `f `i ]
+"368
+[e $ ! && < -> _decimal `d .9.999 >= _decimal -> -> 0 `i `f 101  ]
+"369
+{
+"370
+[v _resto `ui ~T0 @X0 1 a ]
+[e = _resto -> * _decimal -> .1000.0 `f `ui ]
+"373
+[e = . _miDecimal 0 -> / _resto -> -> 1000 `i `ui `uc ]
+"374
+[e = _resto % _resto -> -> 1000 `i `ui ]
+"377
+[e = . _miDecimal 1 -> / _resto -> -> 100 `i `ui `uc ]
+"378
+[e = _resto % _resto -> -> 100 `i `ui ]
+"381
+[e = . _miDecimal 2 -> / _resto -> -> 10 `i `ui `uc ]
+"382
+[e = _resto % _resto -> -> 10 `i `ui ]
+"385
+[e = . _miDecimal 3 -> _resto `uc ]
+"386
+}
+[e $U 102  ]
+"387
+[e :U 101 ]
+"388
+{
+"389
+[e = . _miDecimal 0 -> -> 0 `i `uc ]
+"390
+[e = . _miDecimal 1 -> -> 0 `i `uc ]
+"391
+[e = . _miDecimal 2 -> -> 0 `i `uc ]
+"392
+[e = . _miDecimal 3 -> -> 0 `i `uc ]
+"393
+}
+[e :U 102 ]
+"395
+[e ) _miDecimal ]
+[e $UE 100  ]
+"396
+[e :UE 100 ]
+}

@@ -1,0 +1,1021 @@
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-1-2022  16:04:46         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      00002 ;    
+                      00003 ;                   PWM CON RUTINAS DE TIEMPO
+                      00004 ;   PORTD = PWM F = 1KHZ, CADA QUE SE APRIETE A PB.1 CAMBIAR
+                      00005 ;   EL PWM DE:
+                      00006 ;   A) 0% A 5%
+                      00007 ;   B) 5% A 20%
+                      00008 ;   C) 20% A 50%
+                      00009 ;   D) 50% A 80%
+                      00010 ;   E) 80% A 0%
+                      00011 ;   MOSTRAR PE.2 = 1 PARA COMPARAR CON EL PWM
+                      00012 ;
+                      00013 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      00014     
+                      00015 ;   CONFIGURACION DEL PIC.......................................................
+                      00016     
+                      00017                 PROCESSOR       16F877A
+                      00018                 INCLUDE         <p16f877a.inc>
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ; Build date : Nov 22 2017
+                      00005 ;  MPASM PIC16F877A processor include
+                      00006 ; 
+                      00007 ;  (c) Copyright 1999-2017 Microchip Technology, All rights reserved
+                      00008 ;==========================================================================
+                      00009 
+                      00567         LIST
+                      00019                 INCLUDE         </home/vill4in/MPLABXProjects/Library.X/RutinasTiempo.asm>
+                      00001 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      00002 ;
+                      00003 ;                   SUBRUTINAS DE TIEMPO
+                      00004 ;
+                      00005 ;       MACROS DE SUBRUTINAS DE TIEMPO DE UNA, DOS Y TRES VARIABLES
+                      00006 ;       
+                      00007 ;       SE EMPLEAN LOS REGISTROS RAM DE 0X60 HASTA 0X68 PARA ALMACENAR
+                      00008 ;       LAS VARIABLES
+                      00009 ;
+                      00010 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      00011     
+                      00012 ;   MACRO Y SUBRUTINA DE UNA VARIABLE, CICLOS_MAQ_MAX = 1797
+                      00013 ;   SE OCUPA LA DIRECCION 0X60 DE LA RAM PARA GUARDAR EL VALOR DE VAR1
+                      00014     
+                      00015 SUBT1V      MACRO       VAR1
+                      00016             MOVLW       VAR1
+                      00017             MOVWF       0X60
+                      00018             NOP
+                      00019             NOP
+                      00020             NOP
+                      00021             NOP
+                      00022             DECFSZ      0X60,F
+                      00023             GOTO        $-5
+                      00024             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-1-2022  16:04:46         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00025             NOP                         ; LOS DE CALL
+                      00026             NOP
+                      00027             NOP
+                      00028             ENDM
+                      00029     
+                      00030 ;   MACRO Y SUBRUTINA DE DOS VARIABLES, CICLOS_MAQ_MAX = 459,783
+                      00031 ;   SE OCUPA LA DIRECCION 0X61,62 DE LA RAM PARA GUARDAR EL VALOR DE VAR1,
+                      00032 ;   VAR2
+                      00033 ;   TAMBIEN SE OCUPA LA DIRECCION  0X63 COMO REGISTRO AUXILIAR EN EL DECREMENTO
+                      00034     
+                      00035 SUBT2V      MACRO       VAR1,VAR2
+                      00036             MOVLW       VAR1
+                      00037             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+                      00038             MOVLW       VAR2
+                      00039             MOVWF       0X62
+                      00040             MOVF        0X62,W
+                      00041             MOVWF       0X63
+                      00042             NOP
+                      00043             NOP
+                      00044             NOP
+                      00045             NOP
+                      00046             DECFSZ      0X63,F
+                      00047             GOTO        $-5
+                      00048             DECFSZ      0X61,F
+                      00049             GOTO        $-9
+                      00050             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+                      00051             NOP                         ; LOS DE CALL
+                      00052             NOP
+                      00053             NOP
+                      00054             ENDM
+                      00055 
+                      00056 
+                      00057             
+                      00058 ;   MACRO Y SUBRUTINA DE TRES VARIABLES, CICLOS_MAQ_MAX = 117,703,689
+                      00059 ;   SE OCUPA LA DIRECCION 0X64,65,66 DE LA RAM PARA GUARDAR EL VALOR DE VAR1,
+                      00060 ;   VAR2,VAR3
+                      00061 ;   TAMBIEN SE OCUPAN LOS REGISTROS, 0X67 Y 0X68 COMO AUXILIARES
+                      00062     
+                      00063 SUBT3V      MACRO       VAR1,VAR2,VAR3
+                      00064             MOVLW       VAR1
+                      00065             MOVWF       0X64            ; VALOR DE MAYOR PESO EN ANIDACION
+                      00066             MOVLW       VAR2
+                      00067             MOVWF       0X65
+                      00068             MOVLW       VAR3            ; VALOR DE MENOR PESO EN ANIDACION
+                      00069             MOVWF       0X66
+                      00070             ;   INICIA BUCLE....................................................
+                      00071             
+                      00072             MOVF        0X65,W          ; VAR2  ETIQUETA $-13
+                      00073             MOVWF       0X67
+                      00074             MOVF        0X66,W          ; VAR3  ETIQUETA $-9
+                      00075             MOVWF       0X68
+                      00076             NOP                         ; ETIQUETA $-5 
+                      00077             NOP
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-1-2022  16:04:46         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00078             NOP
+                      00079             NOP
+                      00080             DECFSZ      0X68,F          ; VAR3_AUX
+                      00081             GOTO        $-5
+                      00082             DECFSZ      0X67,F          ; VAR2_AUX
+                      00083             GOTO        $-9
+                      00084             DECFSZ      0X64,F          ; VAR1
+                      00085             GOTO        $-13
+                      00086             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+                      00087             NOP                         ; LOS DE CALL
+                      00088             NOP
+                      00089             NOP
+                      00090             ENDM
+                      00091             
+                      00092             
+                      00093             
+2007   3F31           00020                 __CONFIG        0X3F31
+                      00021                 ORG             0X0000
+                      00022                 
+                      00023 ;   CONFIGURACION DE LOS PUERTOS................................................
+                      00024                 
+0000   1283           00025                 BCF             STATUS,RP0
+0001   1303           00026                 BCF             STATUS,RP1
+0002   0185           00027                 CLRF            PORTA
+0003   0186           00028                 CLRF            PORTB
+0004   0187           00029                 CLRF            PORTC
+0005   0188           00030                 CLRF            PORTD
+0006   1683           00031                 BSF             STATUS,RP0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0007   0188           00032                 CLRF            TRISD
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0008   1109           00033                 BCF             TRISE,2
+0009   1283           00034                 BCF             STATUS,RP0
+000A   1509           00035                 BSF             PORTE,2
+                      00036                 
+                      00037 ;   PROGRAMA PRINCIPAL
+                      00038 ;   SE REALIZA EL AJUSTE EN LOS TIEMPOS DE TRABAJO E IDLE PARA CONTEMPLAR
+                      00039 ;   LOS CICLOS QUE SE USAN DURANTE LAS INSTRUCCIONES INTERMEDIAS EN EL CAMBIO
+                      00040 ;   DE  ESTADOS
+                      00041                 
+000B   1C86           00042 INICIO:         BTFSS           PORTB,1
+000C   2???           00043                 GOTO            $-1
+                      00044                 SUBT2V          .32,.111        ; DELAY DE 25MS
+000D   3020               M             MOVLW       .32
+000E   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+000F   306F               M             MOVLW       .111
+0010   00E2               M             MOVWF       0X62
+0011   0862               M             MOVF        0X62,W
+0012   00E3               M             MOVWF       0X63
+0013   0000               M             NOP
+0014   0000               M             NOP
+0015   0000               M             NOP
+0016   0000               M             NOP
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-1-2022  16:04:46         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0017   0BE3               M             DECFSZ      0X63,F
+0018   2???               M             GOTO        $-5
+0019   0BE1               M             DECFSZ      0X61,F
+001A   2???               M             GOTO        $-9
+001B   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+001C   0000               M             NOP                         ; LOS DE CALL
+001D   0000               M             NOP
+001E   0000               M             NOP
+001F   0000           00045                 NOP
+0020   1886           00046                 BTFSC           PORTB,1
+0021   2???           00047                 GOTO            $-1
+                      00048                 SUBT2V          .32,.111 
+0022   3020               M             MOVLW       .32
+0023   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+0024   306F               M             MOVLW       .111
+0025   00E2               M             MOVWF       0X62
+0026   0862               M             MOVF        0X62,W
+0027   00E3               M             MOVWF       0X63
+0028   0000               M             NOP
+0029   0000               M             NOP
+002A   0000               M             NOP
+002B   0000               M             NOP
+002C   0BE3               M             DECFSZ      0X63,F
+002D   2???               M             GOTO        $-5
+002E   0BE1               M             DECFSZ      0X61,F
+002F   2???               M             GOTO        $-9
+0030   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+0031   0000               M             NOP                         ; LOS DE CALL
+0032   0000               M             NOP
+0033   0000               M             NOP
+0034   0000           00049                 NOP
+                      00050                 
+0035   0988           00051 CINCOPORC:      COMF            PORTD,F
+                      00052                 SUBT1V          .6              ; DUTY CICLE DE 0.05MS; 50 CICLOS
+0036   3006               M             MOVLW       .6
+0037   00E0               M             MOVWF       0X60
+0038   0000               M             NOP
+0039   0000               M             NOP
+003A   0000               M             NOP
+003B   0000               M             NOP
+003C   0BE0               M             DECFSZ      0X60,F
+003D   2???               M             GOTO        $-5
+003E   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+003F   0000               M             NOP                         ; LOS DE CALL
+0040   0000               M             NOP
+0041   0000               M             NOP
+0042   0000           00053                 NOP
+0043   0000           00054                 NOP
+0044   0988           00055                 COMF            PORTD,F         ; 49 + 1 CICLOS
+                      00056                 SUBT2V          .14,.9          ; DELAY DE 0.95 MS
+0045   300E               M             MOVLW       .14
+0046   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+0047   3009               M             MOVLW       .9
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-1-2022  16:04:46         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0048   00E2               M             MOVWF       0X62
+0049   0862               M             MOVF        0X62,W
+004A   00E3               M             MOVWF       0X63
+004B   0000               M             NOP
+004C   0000               M             NOP
+004D   0000               M             NOP
+004E   0000               M             NOP
+004F   0BE3               M             DECFSZ      0X63,F
+0050   2???               M             GOTO        $-5
+0051   0BE1               M             DECFSZ      0X61,F
+0052   2???               M             GOTO        $-9
+0053   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+0054   0000               M             NOP                         ; LOS DE CALL
+0055   0000               M             NOP
+0056   0000               M             NOP
+0057   0000           00057                 NOP
+0058   1C86           00058                 BTFSS           PORTB,1
+0059   2???           00059                 GOTO            CINCOPORC
+                      00060                 SUBT2V          .32,.111        ; DELAY DE 25MS
+005A   3020               M             MOVLW       .32
+005B   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+005C   306F               M             MOVLW       .111
+005D   00E2               M             MOVWF       0X62
+005E   0862               M             MOVF        0X62,W
+005F   00E3               M             MOVWF       0X63
+0060   0000               M             NOP
+0061   0000               M             NOP
+0062   0000               M             NOP
+0063   0000               M             NOP
+0064   0BE3               M             DECFSZ      0X63,F
+0065   2???               M             GOTO        $-5
+0066   0BE1               M             DECFSZ      0X61,F
+0067   2???               M             GOTO        $-9
+0068   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+0069   0000               M             NOP                         ; LOS DE CALL
+006A   0000               M             NOP
+006B   0000               M             NOP
+006C   0000           00061                 NOP
+006D   1886           00062                 BTFSC           PORTB,1
+006E   2???           00063                 GOTO            $-1
+                      00064                 SUBT2V          .32,.111
+006F   3020               M             MOVLW       .32
+0070   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+0071   306F               M             MOVLW       .111
+0072   00E2               M             MOVWF       0X62
+0073   0862               M             MOVF        0X62,W
+0074   00E3               M             MOVWF       0X63
+0075   0000               M             NOP
+0076   0000               M             NOP
+0077   0000               M             NOP
+0078   0000               M             NOP
+0079   0BE3               M             DECFSZ      0X63,F
+007A   2???               M             GOTO        $-5
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-1-2022  16:04:46         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+007B   0BE1               M             DECFSZ      0X61,F
+007C   2???               M             GOTO        $-9
+007D   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+007E   0000               M             NOP                         ; LOS DE CALL
+007F   0000               M             NOP
+0080   0000               M             NOP
+0081   0000           00065                 NOP
+                      00066                 
+0082   0988           00067 VEINTEPORC:     COMF            PORTD,F
+                      00068                 SUBT2V          .6,.4           ; DUTY CICLE DE 0.2 MS
+0083   3006               M             MOVLW       .6
+0084   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+0085   3004               M             MOVLW       .4
+0086   00E2               M             MOVWF       0X62
+0087   0862               M             MOVF        0X62,W
+0088   00E3               M             MOVWF       0X63
+0089   0000               M             NOP
+008A   0000               M             NOP
+008B   0000               M             NOP
+008C   0000               M             NOP
+008D   0BE3               M             DECFSZ      0X63,F
+008E   2???               M             GOTO        $-5
+008F   0BE1               M             DECFSZ      0X61,F
+0090   2???               M             GOTO        $-9
+0091   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+0092   0000               M             NOP                         ; LOS DE CALL
+0093   0000               M             NOP
+0094   0000               M             NOP
+0095   0988           00069                 COMF            PORTD,F         ; 199 + 1 CICLOS
+                      00070                 SUBT1V          .113            ; DELAY DE 0.796 MS
+0096   3071               M             MOVLW       .113
+0097   00E0               M             MOVWF       0X60
+0098   0000               M             NOP
+0099   0000               M             NOP
+009A   0000               M             NOP
+009B   0000               M             NOP
+009C   0BE0               M             DECFSZ      0X60,F
+009D   2???               M             GOTO        $-5
+009E   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+009F   0000               M             NOP                         ; LOS DE CALL
+00A0   0000               M             NOP
+00A1   0000               M             NOP
+00A2   1C86           00071                 BTFSS           PORTB,1
+00A3   2???           00072                 GOTO            VEINTEPORC
+                      00073                 SUBT2V          .32,.111        ; DELAY DE 25MS
+00A4   3020               M             MOVLW       .32
+00A5   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+00A6   306F               M             MOVLW       .111
+00A7   00E2               M             MOVWF       0X62
+00A8   0862               M             MOVF        0X62,W
+00A9   00E3               M             MOVWF       0X63
+00AA   0000               M             NOP
+00AB   0000               M             NOP
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-1-2022  16:04:46         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00AC   0000               M             NOP
+00AD   0000               M             NOP
+00AE   0BE3               M             DECFSZ      0X63,F
+00AF   2???               M             GOTO        $-5
+00B0   0BE1               M             DECFSZ      0X61,F
+00B1   2???               M             GOTO        $-9
+00B2   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+00B3   0000               M             NOP                         ; LOS DE CALL
+00B4   0000               M             NOP
+00B5   0000               M             NOP
+00B6   0000           00074                 NOP
+00B7   1886           00075                 BTFSC           PORTB,1
+00B8   2???           00076                 GOTO            $-1
+                      00077                 SUBT2V          .32,.111
+00B9   3020               M             MOVLW       .32
+00BA   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+00BB   306F               M             MOVLW       .111
+00BC   00E2               M             MOVWF       0X62
+00BD   0862               M             MOVF        0X62,W
+00BE   00E3               M             MOVWF       0X63
+00BF   0000               M             NOP
+00C0   0000               M             NOP
+00C1   0000               M             NOP
+00C2   0000               M             NOP
+00C3   0BE3               M             DECFSZ      0X63,F
+00C4   2???               M             GOTO        $-5
+00C5   0BE1               M             DECFSZ      0X61,F
+00C6   2???               M             GOTO        $-9
+00C7   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+00C8   0000               M             NOP                         ; LOS DE CALL
+00C9   0000               M             NOP
+00CA   0000               M             NOP
+00CB   0000           00078                 NOP
+                      00079                 
+00CC   0988           00080 CINCUENTAPORC:  COMF            PORTD,F
+                      00081                 SUBT2V          .4,.17          ; DUTY CICLE DE 0.50MS
+00CD   3004               M             MOVLW       .4
+00CE   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+00CF   3011               M             MOVLW       .17
+00D0   00E2               M             MOVWF       0X62
+00D1   0862               M             MOVF        0X62,W
+00D2   00E3               M             MOVWF       0X63
+00D3   0000               M             NOP
+00D4   0000               M             NOP
+00D5   0000               M             NOP
+00D6   0000               M             NOP
+00D7   0BE3               M             DECFSZ      0X63,F
+00D8   2???               M             GOTO        $-5
+00D9   0BE1               M             DECFSZ      0X61,F
+00DA   2???               M             GOTO        $-9
+00DB   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+00DC   0000               M             NOP                         ; LOS DE CALL
+00DD   0000               M             NOP
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-1-2022  16:04:46         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00DE   0000               M             NOP
+00DF   0988           00082                 COMF            PORTD,F
+                      00083                 SUBT1V          .70             ; DELAY DE 0.50MS
+00E0   3046               M             MOVLW       .70
+00E1   00E0               M             MOVWF       0X60
+00E2   0000               M             NOP
+00E3   0000               M             NOP
+00E4   0000               M             NOP
+00E5   0000               M             NOP
+00E6   0BE0               M             DECFSZ      0X60,F
+00E7   2???               M             GOTO        $-5
+00E8   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+00E9   0000               M             NOP                         ; LOS DE CALL
+00EA   0000               M             NOP
+00EB   0000               M             NOP
+00EC   0000           00084                 NOP                             ; 495 + 1 CICLOS
+00ED   1C86           00085                 BTFSS           PORTB,1
+00EE   2???           00086                 GOTO            CINCUENTAPORC
+                      00087                 SUBT2V          .32,.111        ; DELAY DE 25MS
+00EF   3020               M             MOVLW       .32
+00F0   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+00F1   306F               M             MOVLW       .111
+00F2   00E2               M             MOVWF       0X62
+00F3   0862               M             MOVF        0X62,W
+00F4   00E3               M             MOVWF       0X63
+00F5   0000               M             NOP
+00F6   0000               M             NOP
+00F7   0000               M             NOP
+00F8   0000               M             NOP
+00F9   0BE3               M             DECFSZ      0X63,F
+00FA   2???               M             GOTO        $-5
+00FB   0BE1               M             DECFSZ      0X61,F
+00FC   2???               M             GOTO        $-9
+00FD   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+00FE   0000               M             NOP                         ; LOS DE CALL
+00FF   0000               M             NOP
+0100   0000               M             NOP
+0101   0000           00088                 NOP
+0102   1886           00089                 BTFSC           PORTB,1
+0103   2???           00090                 GOTO            $-1
+                      00091                 SUBT2V          .32,.111
+0104   3020               M             MOVLW       .32
+0105   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+0106   306F               M             MOVLW       .111
+0107   00E2               M             MOVWF       0X62
+0108   0862               M             MOVF        0X62,W
+0109   00E3               M             MOVWF       0X63
+010A   0000               M             NOP
+010B   0000               M             NOP
+010C   0000               M             NOP
+010D   0000               M             NOP
+010E   0BE3               M             DECFSZ      0X63,F
+010F   2???               M             GOTO        $-5
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-1-2022  16:04:46         PAGE  9
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0110   0BE1               M             DECFSZ      0X61,F
+0111   2???               M             GOTO        $-9
+0112   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+0113   0000               M             NOP                         ; LOS DE CALL
+0114   0000               M             NOP
+0115   0000               M             NOP
+0116   0000           00092                 NOP
+                      00093                 
+0117   0988           00094 OCHENTAPORC:    COMF            PORTD,F
+                      00095                 SUBT2V          .2,.56          ; DUTY CICLE DE 0.80MS
+0118   3002               M             MOVLW       .2
+0119   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+011A   3038               M             MOVLW       .56
+011B   00E2               M             MOVWF       0X62
+011C   0862               M             MOVF        0X62,W
+011D   00E3               M             MOVWF       0X63
+011E   0000               M             NOP
+011F   0000               M             NOP
+0120   0000               M             NOP
+0121   0000               M             NOP
+0122   0BE3               M             DECFSZ      0X63,F
+0123   2???               M             GOTO        $-5
+0124   0BE1               M             DECFSZ      0X61,F
+0125   2???               M             GOTO        $-9
+0126   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+0127   0000               M             NOP                         ; LOS DE CALL
+0128   0000               M             NOP
+0129   0000               M             NOP
+012A   0988           00096                 COMF            PORTD,F
+                      00097                 SUBT1V          .27             ; DELAY DE 0.20MS
+012B   301B               M             MOVLW       .27
+012C   00E0               M             MOVWF       0X60
+012D   0000               M             NOP
+012E   0000               M             NOP
+012F   0000               M             NOP
+0130   0000               M             NOP
+0131   0BE0               M             DECFSZ      0X60,F
+0132   2???               M             GOTO        $-5
+0133   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+0134   0000               M             NOP                         ; LOS DE CALL
+0135   0000               M             NOP
+0136   0000               M             NOP
+0137   0000           00098                 NOP
+0138   0000           00099                 NOP                             ; 194 + 2 CICLOS
+0139   1C86           00100                 BTFSS           PORTB,1
+013A   2???           00101                 GOTO            OCHENTAPORC
+                      00102                 SUBT2V          .32,.111        ; DELAY DE 25MS
+013B   3020               M             MOVLW       .32
+013C   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+013D   306F               M             MOVLW       .111
+013E   00E2               M             MOVWF       0X62
+013F   0862               M             MOVF        0X62,W
+0140   00E3               M             MOVWF       0X63
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-1-2022  16:04:46         PAGE 10
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0141   0000               M             NOP
+0142   0000               M             NOP
+0143   0000               M             NOP
+0144   0000               M             NOP
+0145   0BE3               M             DECFSZ      0X63,F
+0146   2???               M             GOTO        $-5
+0147   0BE1               M             DECFSZ      0X61,F
+0148   2???               M             GOTO        $-9
+0149   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+014A   0000               M             NOP                         ; LOS DE CALL
+014B   0000               M             NOP
+014C   0000               M             NOP
+014D   0000           00103                 NOP
+014E   1886           00104                 BTFSC           PORTB,1
+014F   2???           00105                 GOTO            $-1
+                      00106                 SUBT2V          .32,.111
+0150   3020               M             MOVLW       .32
+0151   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+0152   306F               M             MOVLW       .111
+0153   00E2               M             MOVWF       0X62
+0154   0862               M             MOVF        0X62,W
+0155   00E3               M             MOVWF       0X63
+0156   0000               M             NOP
+0157   0000               M             NOP
+0158   0000               M             NOP
+0159   0000               M             NOP
+015A   0BE3               M             DECFSZ      0X63,F
+015B   2???               M             GOTO        $-5
+015C   0BE1               M             DECFSZ      0X61,F
+015D   2???               M             GOTO        $-9
+015E   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+015F   0000               M             NOP                         ; LOS DE CALL
+0160   0000               M             NOP
+0161   0000               M             NOP
+0162   0000           00107                 NOP     
+0163   2???           00108                 GOTO            CINCOPORC
+                      00109                 
+3F31                  00110                 END
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-1-2022  16:04:46         PAGE 11
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ACKDT                             00000005
+ACKEN                             00000004
+ACKSTAT                           00000006
+ADCON0                            0000001F
+ADCON1                            0000009F
+ADCS0                             00000006
+ADCS1                             00000007
+ADCS2                             00000006
+ADDEN                             00000003
+ADFM                              00000007
+ADIE                              00000006
+ADIF                              00000006
+ADON                              00000000
+ADRESH                            0000001E
+ADRESL                            0000009E
+BCLIE                             00000003
+BCLIF                             00000003
+BF                                00000000
+BRGH                              00000002
+C                                 00000000
+C1INV                             00000004
+C1OUT                             00000006
+C2INV                             00000005
+C2OUT                             00000007
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCP2CON                           0000001D
+CCP2IE                            00000000
+CCP2IF                            00000000
+CCP2M0                            00000000
+CCP2M1                            00000001
+CCP2M2                            00000002
+CCP2M3                            00000003
+CCP2X                             00000005
+CCP2Y                             00000004
+CCPR1                             00000015
+CCPR1H                            00000016
+CCPR1L                            00000015
+CCPR2                             0000001B
+CCPR2H                            0000001C
+CCPR2L                            0000001B
+CHS0                              00000003
+CHS1                              00000004
+CHS2                              00000005
+CINCOPORC                         00000035
+CINCUENTAPORC                     000000CC
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-1-2022  16:04:46         PAGE 12
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+CIS                               00000003
+CKE                               00000006
+CKP                               00000004
+CM0                               00000000
+CM1                               00000001
+CM2                               00000002
+CMCON                             0000009C
+CMIE                              00000006
+CMIF                              00000006
+CREN                              00000004
+CSRC                              00000007
+CVR0                              00000000
+CVR1                              00000001
+CVR2                              00000002
+CVR3                              00000003
+CVRCON                            0000009D
+CVREN                             00000007
+CVROE                             00000006
+CVRR                              00000005
+D                                 00000005
+DATA_ADDRESS                      00000005
+DC                                00000001
+D_A                               00000005
+D_NOT_A                           00000005
+EEADR                             0000010D
+EEADRH                            0000010F
+EECON1                            0000018C
+EECON2                            0000018D
+EEDATA                            0000010C
+EEDATH                            0000010E
+EEIE                              00000004
+EEIF                              00000004
+EEPGD                             00000007
+F                                 00000001
+FERR                              00000002
+FSR                               00000004
+GCEN                              00000007
+GIE                               00000007
+GO                                00000002
+GO_DONE                           00000002
+GO_NOT_DONE                       00000002
+I2C_DATA                          00000005
+I2C_READ                          00000002
+I2C_START                         00000003
+I2C_STOP                          00000004
+IBF                               00000007
+IBOV                              00000005
+INDF                              00000000
+INICIO                            0000000B
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-1-2022  16:04:46         PAGE 13
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+IRP                               00000007
+NOT_A                             00000005
+NOT_ADDRESS                       00000005
+NOT_BO                            00000000
+NOT_BOR                           00000000
+NOT_DONE                          00000002
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_RC8                           00000006
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NOT_TX8                           00000006
+NOT_W                             00000002
+NOT_WRITE                         00000002
+OBF                               00000006
+OCHENTAPORC                       00000117
+OERR                              00000001
+OPTION_REG                        00000081
+P                                 00000004
+PCFG0                             00000000
+PCFG1                             00000001
+PCFG2                             00000002
+PCFG3                             00000003
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PEIE                              00000006
+PEN                               00000002
+PIE1                              0000008C
+PIE2                              0000008D
+PIR1                              0000000C
+PIR2                              0000000D
+PORTA                             00000005
+PORTB                             00000006
+PORTC                             00000007
+PORTD                             00000008
+PORTE                             00000009
+PR2                               00000092
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+PSPIE                             00000007
+PSPIF                             00000007
+PSPMODE                           00000004
+R                                 00000002
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RA5                               00000005
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-1-2022  16:04:46         PAGE 14
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RC0                               00000000
+RC1                               00000001
+RC2                               00000002
+RC3                               00000003
+RC4                               00000004
+RC5                               00000005
+RC6                               00000006
+RC7                               00000007
+RC8_9                             00000006
+RC9                               00000006
+RCD8                              00000000
+RCEN                              00000003
+RCIE                              00000005
+RCIF                              00000005
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+RD0                               00000000
+RD1                               00000001
+RD2                               00000002
+RD3                               00000003
+RD4                               00000004
+RD5                               00000005
+RD6                               00000006
+RD7                               00000007
+RE0                               00000000
+RE1                               00000001
+RE2                               00000002
+READ_WRITE                        00000002
+RP0                               00000005
+RP1                               00000006
+RSEN                              00000001
+RX9                               00000006
+RX9D                              00000000
+R_NOT_W                           00000002
+R_W                               00000002
+S                                 00000003
+SEN                               00000000
+SMP                               00000007
+SPBRG                             00000099
+SPEN                              00000007
+SREN                              00000005
+SSPADD                            00000093
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-1-2022  16:04:46         PAGE 15
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+SSPBUF                            00000013
+SSPCON                            00000014
+SSPCON2                           00000091
+SSPEN                             00000005
+SSPIE                             00000003
+SSPIF                             00000003
+SSPM0                             00000000
+SSPM1                             00000001
+SSPM2                             00000002
+SSPM3                             00000003
+SSPOV                             00000006
+SSPSTAT                           00000094
+STATUS                            00000003
+SUBT1V                            
+SUBT2V                            
+SUBT3V                            
+SYNC                              00000004
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1INSYNC                          00000002
+T1OSCEN                           00000003
+T1SYNC                            00000002
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000012
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TMR1                              0000000E
+TMR1CS                            00000001
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-1-2022  16:04:46         PAGE 16
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TRISA4                            00000004
+TRISA5                            00000005
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+TRISC                             00000087
+TRISC0                            00000000
+TRISC1                            00000001
+TRISC2                            00000002
+TRISC3                            00000003
+TRISC4                            00000004
+TRISC5                            00000005
+TRISC6                            00000006
+TRISC7                            00000007
+TRISD                             00000088
+TRISD0                            00000000
+TRISD1                            00000001
+TRISD2                            00000002
+TRISD3                            00000003
+TRISD4                            00000004
+TRISD5                            00000005
+TRISD6                            00000006
+TRISD7                            00000007
+TRISE                             00000089
+TRISE0                            00000000
+TRISE1                            00000001
+TRISE2                            00000002
+TRMT                              00000001
+TX8_9                             00000006
+TX9                               00000006
+TX9D                              00000000
+TXD8                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+TXSTA                             00000098
+UA                                00000001
+VEINTEPORC                        00000082
+W                                 00000000
+WCOL                              00000007
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_.org_0_000C                      0000000C
+_.org_0_0018                      00000018
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-1-2022  16:04:46         PAGE 17
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_.org_0_001A                      0000001A
+_.org_0_0021                      00000021
+_.org_0_002D                      0000002D
+_.org_0_002F                      0000002F
+_.org_0_003D                      0000003D
+_.org_0_0050                      00000050
+_.org_0_0052                      00000052
+_.org_0_0065                      00000065
+_.org_0_0067                      00000067
+_.org_0_006E                      0000006E
+_.org_0_007A                      0000007A
+_.org_0_007C                      0000007C
+_.org_0_008E                      0000008E
+_.org_0_0090                      00000090
+_.org_0_009D                      0000009D
+_.org_0_00AF                      000000AF
+_.org_0_00B1                      000000B1
+_.org_0_00B8                      000000B8
+_.org_0_00C4                      000000C4
+_.org_0_00C6                      000000C6
+_.org_0_00D8                      000000D8
+_.org_0_00DA                      000000DA
+_.org_0_00E7                      000000E7
+_.org_0_00FA                      000000FA
+_.org_0_00FC                      000000FC
+_.org_0_0103                      00000103
+_.org_0_010F                      0000010F
+_.org_0_0111                      00000111
+_.org_0_0123                      00000123
+_.org_0_0125                      00000125
+_.org_0_0132                      00000132
+_.org_0_0146                      00000146
+_.org_0_0148                      00000148
+_.org_0_014F                      0000014F
+_.org_0_015B                      0000015B
+_.org_0_015D                      0000015D
+_BODEN_OFF                        00003FBF
+_BODEN_ON                         00003FFF
+_BOREN_OFF                        00003FBF
+_BOREN_ON                         00003FFF
+_CONFIG                           00002007
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003EFF
+_CP_ALL                           00001FFF
+_CP_OFF                           00003FFF
+_CP_ON                            00001FFF
+_DEBUG_OFF                        00003FFF
+_DEBUG_ON                         000037FF
+_DEVID1                           00002006
+_FOSC_EXTRC                       00003FFF
+_FOSC_HS                          00003FFE
+_FOSC_LP                          00003FFC
+_FOSC_XT                          00003FFD
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-1-2022  16:04:46         PAGE 18
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_HS_OSC                           00003FFE
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_LP_OSC                           00003FFC
+_LVP_OFF                          00003F7F
+_LVP_ON                           00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC                           00003FFF
+_WDTE_OFF                         00003FFB
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_WRT_1FOURTH                      00003BFF
+_WRT_256                          00003DFF
+_WRT_HALF                         000039FF
+_WRT_OFF                          00003FFF
+_XT_OSC                           00003FFD
+__16F877A                         00000001
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     2 reported,     0 suppressed
+
+

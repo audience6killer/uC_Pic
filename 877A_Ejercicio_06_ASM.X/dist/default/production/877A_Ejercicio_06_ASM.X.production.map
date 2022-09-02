@@ -1,0 +1,34 @@
+MPLINK 5.08, LINKER
+Linker Map File - Created Sat Jul 23 20:14:26 2022
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x00001c
+                   .cinit    romdata   0x00000e    program   0x000004
+.config_2007_BUILD/DEFAULT/PRODUCTION/EJERCIC       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x00000f      
+                            0x002007    0x002007      
+            17 out of 8454 program addresses used, program memory utilization is 0%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   REPITE   0x000006    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_06_ASM.X/EJERCICIO_06.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   REPITE   0x000006    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_06_ASM.X/EJERCICIO_06.asm
+
+

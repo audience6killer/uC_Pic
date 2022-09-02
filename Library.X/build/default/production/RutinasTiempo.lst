@@ -1,0 +1,76 @@
+
+
+Microchip MPLAB XC8 Assembler V2.35 build 20211206165544 
+                                                                                                           Tue Jul 26 22:49:10 2022
+
+
+     1                           	processor	16F628A
+     2                           	pagewidth 132
+     3                           	psect	pa_nodes0,global,class=CODE,delta=2
+     4                           
+     5 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+     6                           ;
+     7                           ; SUBRUTINAS DE TIEMPO
+     8                           ;
+     9                           ; MACROS DE SUBRUTINAS DE TIEMPO DE UNA, DOS Y TRES VARIABLES
+    10                           ; TAMBIEN SE INCLUYEN MACROS DE TIEMPOS PREDEFINIDOS COMUNMENTE
+    11                           ; EMPLEADOS
+    12                           ;
+    13 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    14                           ; MACRO Y SUBRUTINA DE UNA VARIABLE, CICLOS_MAQ_MAX = 1797
+    15                           ; SE OCUPA LA DIRECCION 0X60 DE LA RAM PARA GUARDAR EL VALOR DE VAR1
+    16  0000                     ST1V:
+    17  0000  0000               	nop
+    18  0001  0000               	nop
+    19  0002  0000               	nop
+    20  0003  0000               	nop
+    21  0004  0BE0               	decfsz	96,f
+    22  0005  2800               	goto	ST1V
+    23  0006  0008               	return
+    24                           
+    25                           ; MACRO Y SUBRUTINA DE DOS VARIABLES, CICLOS_MAQ_MAX = 459,783
+    26                           ; SE OCUPA LA DIRECCION 0X61,62 DE LA RAM PARA GUARDAR EL VALOR DE VAR1,
+    27                           ; VAR2
+    28                           ; TAMBIEN SE OCUPA LA DIRECCION 0X63 COMO REGISTRO AUXILIAR EN EL DECREMENTO
+    29  0007                     ST2V:
+    30  0007  0862               	movf	98,w
+    31  0008  00E3               	movwf	99
+    32  0009                     DECRE2V:
+    33  0009  0000               	nop
+    34  000A  0000               	nop
+    35  000B  0000               	nop
+    36  000C  0000               	nop
+    37  000D  0BE3               	decfsz	99,f
+    38  000E  2809               	goto	DECRE2V
+    39  000F  0BE1               	decfsz	97,f
+    40  0010  2807               	goto	ST2V
+    41  0011  0008               	return
+    42                           
+    43                           ; MACRO Y SUBRUTINA DE TRES VARIABLES, CICLOS_MAQ_MAX = 117,703,689
+    44                           ; SE OCUPA LA DIRECCION 0X64,65,66 DE LA RAM PARA GUARDAR EL VALOR DE VAR1,
+    45                           ; VAR2,VAR3
+    46                           ; TAMBIEN SE OCUPAN LOS REGISTROS, 0X67 Y 0X68 COMO AUXILIARES
+    47  0012                     ST3V:
+    48  0012  0865               	movf	101,w	; VAR2
+    49  0013  00E7               	movwf	103
+    50  0014                     RECARGA3V:
+    51  0014  0866               	movf	102,w	; VAR3
+    52  0015  00E8               	movwf	104
+    53  0016                     DECRE3V:
+    54  0016  0000               	nop
+    55  0017  0000               	nop
+    56  0018  0000               	nop
+    57  0019  0000               	nop
+    58  001A  0BE8               	decfsz	104,f	; VAR3_AUX
+    59  001B  2816               	goto	DECRE3V
+    60  001C  0BE7               	decfsz	103,f	; VAR2_AUX
+    61  001D  2814               	goto	RECARGA3V
+    62  001E  0BE4               	decfsz	100,f	; VAR1
+    63  001F  2812               	goto	ST3V
+    64  0020  0008               	return
+
+
+Microchip Technology PIC Macro Assembler V2.35 build 20211206165544 
+Symbol Table                                                                                               Tue Jul 26 22:49:10 2022
+
+      ST1V 0000        ST2V 0007        ST3V 0012     DECRE2V 0009     DECRE3V 0016   RECARGA3V 0014  

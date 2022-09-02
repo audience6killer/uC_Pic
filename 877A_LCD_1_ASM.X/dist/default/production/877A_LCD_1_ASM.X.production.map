@@ -1,0 +1,138 @@
+MPLINK 5.08, LINKER
+Linker Map File - Created Thu Aug 11 19:20:39 2022
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x00052e
+                   .cinit    romdata   0x000297    program   0x000004
+.config_2007_BUILD/DEFAULT/PRODUCTION/LCD_1.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000298      
+                            0x002007    0x002007      
+            666 out of 8454 program addresses used, program memory utilization is 7%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                     INIT   0x000004    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _.org_0_0296   0x000296    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _10DECREV2   0x0000b9    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _10RECARGAV2   0x0000b7    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _13DECREV2   0x0000d6    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _13RECARGAV2   0x0000d4    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _15DECREV2   0x0000f3    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _15RECARGAV2   0x0000f1    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _18DECREV2   0x000110    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _18RECARGAV2   0x00010e    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+                _1DECRE3V   0x00000e    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+              _1RECARGA3V   0x00000c    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+                   _1ST3V   0x00000a    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _20DECREV2   0x00012d    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _20RECARGAV2   0x00012b    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _23DECREV2   0x00014a    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _23RECARGAV2   0x000148    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _25DECREV2   0x000167    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _25RECARGAV2   0x000165    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _28DECREV2   0x000184    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _28RECARGAV2   0x000182    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+                _2DECRE3V   0x000029    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+              _2RECARGA3V   0x000027    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+                   _2ST3V   0x000025    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _30DECREV2   0x0001a1    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _30RECARGAV2   0x00019f    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _33DECREV2   0x0001be    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _33RECARGAV2   0x0001bc    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _35DECREV2   0x0001db    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _35RECARGAV2   0x0001d9    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _38DECREV2   0x0001f8    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _38RECARGAV2   0x0001f6    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+                _3DECRE3V   0x000045    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+              _3RECARGA3V   0x000043    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+                   _3ST3V   0x000041    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _40DECREV2   0x000215    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _40RECARGAV2   0x000213    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _43DECREV2   0x000232    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _43RECARGAV2   0x000230    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _45DECREV2   0x00024f    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _45RECARGAV2   0x00024d    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _48DECREV2   0x00026c    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _48RECARGAV2   0x00026a    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+                _4DECRE3V   0x000061    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+              _4RECARGA3V   0x00005f    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+                   _4ST3V   0x00005d    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _50DECREV2   0x000289    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _50RECARGAV2   0x000287    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+                _5DECRE3V   0x00007c    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+              _5RECARGA3V   0x00007a    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+                   _5ST3V   0x000078    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+                _8DECREV2   0x00009c    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+              _8RECARGAV2   0x00009a    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                     INIT   0x000004    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+                   _1ST3V   0x00000a    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+              _1RECARGA3V   0x00000c    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+                _1DECRE3V   0x00000e    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+                   _2ST3V   0x000025    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+              _2RECARGA3V   0x000027    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+                _2DECRE3V   0x000029    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+                   _3ST3V   0x000041    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+              _3RECARGA3V   0x000043    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+                _3DECRE3V   0x000045    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+                   _4ST3V   0x00005d    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+              _4RECARGA3V   0x00005f    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+                _4DECRE3V   0x000061    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+                   _5ST3V   0x000078    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+              _5RECARGA3V   0x00007a    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+                _5DECRE3V   0x00007c    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+              _8RECARGAV2   0x00009a    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+                _8DECREV2   0x00009c    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _10RECARGAV2   0x0000b7    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _10DECREV2   0x0000b9    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _13RECARGAV2   0x0000d4    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _13DECREV2   0x0000d6    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _15RECARGAV2   0x0000f1    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _15DECREV2   0x0000f3    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _18RECARGAV2   0x00010e    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _18DECREV2   0x000110    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _20RECARGAV2   0x00012b    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _20DECREV2   0x00012d    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _23RECARGAV2   0x000148    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _23DECREV2   0x00014a    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _25RECARGAV2   0x000165    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _25DECREV2   0x000167    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _28RECARGAV2   0x000182    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _28DECREV2   0x000184    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _30RECARGAV2   0x00019f    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _30DECREV2   0x0001a1    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _33RECARGAV2   0x0001bc    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _33DECREV2   0x0001be    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _35RECARGAV2   0x0001d9    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _35DECREV2   0x0001db    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _38RECARGAV2   0x0001f6    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _38DECREV2   0x0001f8    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _40RECARGAV2   0x000213    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _40DECREV2   0x000215    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _43RECARGAV2   0x000230    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _43DECREV2   0x000232    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _45RECARGAV2   0x00024d    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _45DECREV2   0x00024f    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _48RECARGAV2   0x00026a    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _48DECREV2   0x00026c    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _50RECARGAV2   0x000287    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+               _50DECREV2   0x000289    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+             _.org_0_0296   0x000296    program     static /home/vill4in/MPLABXProjects/877A_LCD_1_ASM.X/LCD_1.asm
+
+

@@ -1,0 +1,511 @@
+Version 4.0 HI-TECH Software Intermediate Code
+[p mainexit ]
+"774 /opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 774:     struct {
+[s S29 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S29 . CM CIS C1INV C2INV C1OUT C2OUT ]
+"782
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 782:     struct {
+[s S30 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S30 . CM0 CM1 CM2 ]
+"773
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 773: typedef union {
+[u S28 `S29 1 `S30 1 ]
+[n S28 . . . ]
+"788
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 788: extern volatile CMCONbits_t CMCONbits __attribute__((address(0x01F)));
+[v _CMCONbits `VS28 ~T0 @X0 0 e@31 ]
+"844
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 844:     struct {
+[s S32 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S32 . PS PSA T0SE T0CS INTEDG nRBPU ]
+"852
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 852:     struct {
+[s S33 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S33 . PS0 PS1 PS2 ]
+"843
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 843: typedef union {
+[u S31 `S32 1 `S33 1 ]
+[n S31 . . . ]
+"858
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 858: extern volatile OPTION_REGbits_t OPTION_REGbits __attribute__((address(0x081)));
+[v _OPTION_REGbits `VS31 ~T0 @X0 0 e@129 ]
+"970
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 970: extern volatile unsigned char TRISB __attribute__((address(0x086)));
+[v _TRISB `Vuc ~T0 @X0 0 e@134 ]
+"914
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 914:     struct {
+[s S35 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S35 . TRISA0 TRISA1 TRISA2 TRISA3 TRISA4 TRISA5 TRISA6 TRISA7 ]
+"913
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 913: typedef union {
+[u S34 `S35 1 ]
+[n S34 . . ]
+"925
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 925: extern volatile TRISAbits_t TRISAbits __attribute__((address(0x085)));
+[v _TRISAbits `VS34 ~T0 @X0 0 e@133 ]
+"53 digit_display_test.c
+[; ;digit_display_test.c: 53: {
+[s S51 `uc 1 `uc 1 `uc 1 `uc 1 ]
+[n S51 DigitosEntero unidades decenas centenas millares ]
+"63
+[; ;digit_display_test.c: 63: struct DigitosEntero descomponerEntero(unsigned int numero);
+[v _descomponerEntero `(S51 ~T0 @X0 0 ef1`ui ]
+"83
+[; ;digit_display_test.c: 83:         display(Di1, miEntero.unidades);
+[c E498 0 1 .. ]
+[n E498 ENABLE Di1 Di2  ]
+"61
+[; ;digit_display_test.c: 61: void display(enum ENABLE posicion, unsigned char digito );
+[v _display `(v ~T0 @X0 0 ef2`E498`uc ]
+[v F37 `(v ~T0 @X0 1 tf1`ul ]
+"12 /opt/microchip/xc8/v2.35/pic/include/builtins.h
+[v __delay `JF37 ~T0 @X0 0 e ]
+[p i __delay ]
+"173 /opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 173:     struct {
+[s S6 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S6 . RA0 RA1 RA2 RA3 RA4 RA5 RA6 RA7 ]
+"172
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 172: typedef union {
+[u S5 `S6 1 ]
+[n S5 . . ]
+"184
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 184: extern volatile PORTAbits_t PORTAbits __attribute__((address(0x005)));
+[v _PORTAbits `VS5 ~T0 @X0 0 e@5 ]
+"229
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 229: extern volatile unsigned char PORTB __attribute__((address(0x006)));
+[v _PORTB `Vuc ~T0 @X0 0 e@6 ]
+"20 digit_display_test.c
+[p x FOSC  =  XT     ]
+"21
+[p x MCLRE  =  OFF   ]
+"22
+[p x WDTE  =  OFF    ]
+"23
+[p x PWRTE  =  OFF ]
+"24
+[p x BOREN  =  OFF ]
+"25
+[p x LVP  =  OFF ]
+"26
+[p x CPD  =  OFF ]
+"27
+[p x CP  =  OFF ]
+"39
+[; ;digit_display_test.c: 39: const unsigned char DIGITOS[] = {0x3F, 0x06, 0x5B, 0x4F, 0X66, 0X6D, 0X7D,
+[v _DIGITOS `Cuc ~T0 @X0 -> 11 `i e ]
+[i _DIGITOS
+:U ..
+-> -> 63 `i `uc
+-> -> 6 `i `uc
+-> -> 91 `i `uc
+-> -> 79 `i `uc
+-> -> 102 `i `uc
+-> -> 109 `i `uc
+-> -> 125 `i `uc
+-> -> 7 `i `uc
+-> -> 127 `i `uc
+-> -> 111 `i `uc
+-> -> 128 `i `uc
+..
+]
+"55 /opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 55: __asm("INDF equ 00h");
+[; <" INDF equ 00h ;# ">
+"62
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 62: __asm("TMR0 equ 01h");
+[; <" TMR0 equ 01h ;# ">
+"69
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 69: __asm("PCL equ 02h");
+[; <" PCL equ 02h ;# ">
+"76
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 76: __asm("STATUS equ 03h");
+[; <" STATUS equ 03h ;# ">
+"162
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 162: __asm("FSR equ 04h");
+[; <" FSR equ 04h ;# ">
+"169
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 169: __asm("PORTA equ 05h");
+[; <" PORTA equ 05h ;# ">
+"231
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 231: __asm("PORTB equ 06h");
+[; <" PORTB equ 06h ;# ">
+"293
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 293: __asm("PCLATH equ 0Ah");
+[; <" PCLATH equ 0Ah ;# ">
+"313
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 313: __asm("INTCON equ 0Bh");
+[; <" INTCON equ 0Bh ;# ">
+"391
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 391: __asm("PIR1 equ 0Ch");
+[; <" PIR1 equ 0Ch ;# ">
+"448
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 448: __asm("TMR1 equ 0Eh");
+[; <" TMR1 equ 0Eh ;# ">
+"455
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 455: __asm("TMR1L equ 0Eh");
+[; <" TMR1L equ 0Eh ;# ">
+"462
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 462: __asm("TMR1H equ 0Fh");
+[; <" TMR1H equ 0Fh ;# ">
+"469
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 469: __asm("T1CON equ 010h");
+[; <" T1CON equ 010h ;# ">
+"528
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 528: __asm("TMR2 equ 011h");
+[; <" TMR2 equ 011h ;# ">
+"535
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 535: __asm("T2CON equ 012h");
+[; <" T2CON equ 012h ;# ">
+"606
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 606: __asm("CCPR1 equ 015h");
+[; <" CCPR1 equ 015h ;# ">
+"613
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 613: __asm("CCPR1L equ 015h");
+[; <" CCPR1L equ 015h ;# ">
+"620
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 620: __asm("CCPR1H equ 016h");
+[; <" CCPR1H equ 016h ;# ">
+"627
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 627: __asm("CCP1CON equ 017h");
+[; <" CCP1CON equ 017h ;# ">
+"685
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 685: __asm("RCSTA equ 018h");
+[; <" RCSTA equ 018h ;# ">
+"756
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 756: __asm("TXREG equ 019h");
+[; <" TXREG equ 019h ;# ">
+"763
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 763: __asm("RCREG equ 01Ah");
+[; <" RCREG equ 01Ah ;# ">
+"770
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 770: __asm("CMCON equ 01Fh");
+[; <" CMCON equ 01Fh ;# ">
+"840
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 840: __asm("OPTION_REG equ 081h");
+[; <" OPTION_REG equ 081h ;# ">
+"910
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 910: __asm("TRISA equ 085h");
+[; <" TRISA equ 085h ;# ">
+"972
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 972: __asm("TRISB equ 086h");
+[; <" TRISB equ 086h ;# ">
+"1034
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1034: __asm("PIE1 equ 08Ch");
+[; <" PIE1 equ 08Ch ;# ">
+"1091
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1091: __asm("PCON equ 08Eh");
+[; <" PCON equ 08Eh ;# ">
+"1140
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1140: __asm("PR2 equ 092h");
+[; <" PR2 equ 092h ;# ">
+"1147
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1147: __asm("TXSTA equ 098h");
+[; <" TXSTA equ 098h ;# ">
+"1204
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1204: __asm("SPBRG equ 099h");
+[; <" SPBRG equ 099h ;# ">
+"1211
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1211: __asm("EEDATA equ 09Ah");
+[; <" EEDATA equ 09Ah ;# ">
+"1218
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1218: __asm("EEADR equ 09Bh");
+[; <" EEADR equ 09Bh ;# ">
+"1225
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1225: __asm("EECON1 equ 09Ch");
+[; <" EECON1 equ 09Ch ;# ">
+"1263
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1263: __asm("EECON2 equ 09Dh");
+[; <" EECON2 equ 09Dh ;# ">
+"1270
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1270: __asm("VRCON equ 09Fh");
+[; <" VRCON equ 09Fh ;# ">
+[v $root$_main `(v ~T0 @X0 0 e ]
+"65 digit_display_test.c
+[; ;digit_display_test.c: 65: int main(void) {
+[v _main `(i ~T0 @X0 1 ef ]
+{
+[e :U _main ]
+[f ]
+"68
+[; ;digit_display_test.c: 68:     CMCONbits.CM = 0b111;
+[e = . . _CMCONbits 0 0 -> -> 7 `i `uc ]
+"69
+[; ;digit_display_test.c: 69:     OPTION_REGbits.T0CS = 0;
+[e = . . _OPTION_REGbits 0 3 -> -> 0 `i `uc ]
+"71
+[; ;digit_display_test.c: 71:     TRISB = 0;
+[e = _TRISB -> -> 0 `i `uc ]
+"74
+[; ;digit_display_test.c: 74:     TRISAbits.TRISA2 = 0;
+[e = . . _TRISAbits 0 2 -> -> 0 `i `uc ]
+"75
+[; ;digit_display_test.c: 75:     TRISAbits.TRISA3 = 0;
+[e = . . _TRISAbits 0 3 -> -> 0 `i `uc ]
+"77
+[; ;digit_display_test.c: 77:     unsigned int mostrar = 23;
+[v _mostrar `ui ~T0 @X0 1 a ]
+[e = _mostrar -> -> 23 `i `ui ]
+"79
+[; ;digit_display_test.c: 79:     struct DigitosEntero miEntero = descomponerEntero(mostrar);
+[v _miEntero `S51 ~T0 @X0 1 a ]
+[e = _miEntero ( _descomponerEntero (1 _mostrar ]
+"81
+[; ;digit_display_test.c: 81:     while(1)
+[e :U 54 ]
+"82
+[; ;digit_display_test.c: 82:     {
+{
+"83
+[; ;digit_display_test.c: 83:         display(Di1, miEntero.unidades);
+[e ( _display (2 , . `E498 0 . _miEntero 0 ]
+"84
+[; ;digit_display_test.c: 84:         _delay((unsigned long)((5)*(4000000/4000.0)));
+[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"85
+[; ;digit_display_test.c: 85:         display(Di2, miEntero.decenas);
+[e ( _display (2 , . `E498 1 . _miEntero 1 ]
+"86
+[; ;digit_display_test.c: 86:         _delay((unsigned long)((5)*(4000000/4000.0)));
+[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"87
+[; ;digit_display_test.c: 87:     }
+}
+[e :U 53 ]
+[e $U 54  ]
+[e :U 55 ]
+"89
+[; ;digit_display_test.c: 89:     return 0;
+[e ) -> 0 `i ]
+[e $UE 52  ]
+"90
+[; ;digit_display_test.c: 90: }
+[e :UE 52 ]
+}
+"95
+[; ;digit_display_test.c: 95: void display(enum ENABLE posicion, unsigned char digito )
+[v _display `(v ~T0 @X0 1 ef2`E498`uc ]
+"96
+[; ;digit_display_test.c: 96: {
+{
+[e :U _display ]
+"95
+[; ;digit_display_test.c: 95: void display(enum ENABLE posicion, unsigned char digito )
+[v _posicion `E498 ~T0 @X0 1 r1 ]
+[v _digito `uc ~T0 @X0 1 r2 ]
+"96
+[; ;digit_display_test.c: 96: {
+[f ]
+"97
+[; ;digit_display_test.c: 97:     unsigned char digitoHex;
+[v _digitoHex `uc ~T0 @X0 1 a ]
+"99
+[; ;digit_display_test.c: 99:     PORTAbits.RA2 = 0;
+[e = . . _PORTAbits 0 2 -> -> 0 `i `uc ]
+"100
+[; ;digit_display_test.c: 100:     PORTAbits.RA3 = 0;
+[e = . . _PORTAbits 0 3 -> -> 0 `i `uc ]
+"103
+[; ;digit_display_test.c: 103:     switch(digito)
+[e $U 58  ]
+"104
+[; ;digit_display_test.c: 104:     {
+{
+"105
+[; ;digit_display_test.c: 105:         case 0: digitoHex = DIGITOS[0];
+[e :U 59 ]
+[e = _digitoHex *U + &U _DIGITOS * -> -> -> 0 `i `ui `ux -> -> # *U &U _DIGITOS `ui `ux ]
+"106
+[; ;digit_display_test.c: 106:         break;
+[e $U 57  ]
+"107
+[; ;digit_display_test.c: 107:         case 1: digitoHex = DIGITOS[1];
+[e :U 60 ]
+[e = _digitoHex *U + &U _DIGITOS * -> -> -> 1 `i `ui `ux -> -> # *U &U _DIGITOS `ui `ux ]
+"108
+[; ;digit_display_test.c: 108:         break;
+[e $U 57  ]
+"109
+[; ;digit_display_test.c: 109:         case 2: digitoHex = DIGITOS[2];
+[e :U 61 ]
+[e = _digitoHex *U + &U _DIGITOS * -> -> -> 2 `i `ui `ux -> -> # *U &U _DIGITOS `ui `ux ]
+"110
+[; ;digit_display_test.c: 110:         break;
+[e $U 57  ]
+"111
+[; ;digit_display_test.c: 111:         case 3: digitoHex = DIGITOS[3];
+[e :U 62 ]
+[e = _digitoHex *U + &U _DIGITOS * -> -> -> 3 `i `ui `ux -> -> # *U &U _DIGITOS `ui `ux ]
+"112
+[; ;digit_display_test.c: 112:         break;
+[e $U 57  ]
+"113
+[; ;digit_display_test.c: 113:         case 4: digitoHex = DIGITOS[4];
+[e :U 63 ]
+[e = _digitoHex *U + &U _DIGITOS * -> -> -> 4 `i `ui `ux -> -> # *U &U _DIGITOS `ui `ux ]
+"114
+[; ;digit_display_test.c: 114:         break;
+[e $U 57  ]
+"115
+[; ;digit_display_test.c: 115:         case 5: digitoHex = DIGITOS[5];
+[e :U 64 ]
+[e = _digitoHex *U + &U _DIGITOS * -> -> -> 5 `i `ui `ux -> -> # *U &U _DIGITOS `ui `ux ]
+"116
+[; ;digit_display_test.c: 116:         break;
+[e $U 57  ]
+"117
+[; ;digit_display_test.c: 117:         case 6: digitoHex = DIGITOS[6];
+[e :U 65 ]
+[e = _digitoHex *U + &U _DIGITOS * -> -> -> 6 `i `ui `ux -> -> # *U &U _DIGITOS `ui `ux ]
+"118
+[; ;digit_display_test.c: 118:         break;
+[e $U 57  ]
+"119
+[; ;digit_display_test.c: 119:         case 7: digitoHex = DIGITOS[7];
+[e :U 66 ]
+[e = _digitoHex *U + &U _DIGITOS * -> -> -> 7 `i `ui `ux -> -> # *U &U _DIGITOS `ui `ux ]
+"120
+[; ;digit_display_test.c: 120:         break;
+[e $U 57  ]
+"121
+[; ;digit_display_test.c: 121:         case 8: digitoHex = DIGITOS[8];
+[e :U 67 ]
+[e = _digitoHex *U + &U _DIGITOS * -> -> -> 8 `i `ui `ux -> -> # *U &U _DIGITOS `ui `ux ]
+"122
+[; ;digit_display_test.c: 122:         break;
+[e $U 57  ]
+"123
+[; ;digit_display_test.c: 123:         case 9: digitoHex = DIGITOS[9];
+[e :U 68 ]
+[e = _digitoHex *U + &U _DIGITOS * -> -> -> 9 `i `ui `ux -> -> # *U &U _DIGITOS `ui `ux ]
+"124
+[; ;digit_display_test.c: 124:         break;
+[e $U 57  ]
+"125
+[; ;digit_display_test.c: 125:         case 10: digitoHex = DIGITOS[10];
+[e :U 69 ]
+[e = _digitoHex *U + &U _DIGITOS * -> -> -> 10 `i `ui `ux -> -> # *U &U _DIGITOS `ui `ux ]
+"126
+[; ;digit_display_test.c: 126:         break;
+[e $U 57  ]
+"127
+[; ;digit_display_test.c: 127:         case 128: digitoHex = DIGITOS[11];
+[e :U 70 ]
+[e = _digitoHex *U + &U _DIGITOS * -> -> -> 11 `i `ui `ux -> -> # *U &U _DIGITOS `ui `ux ]
+"128
+[; ;digit_display_test.c: 128:         break;
+[e $U 57  ]
+"129
+[; ;digit_display_test.c: 129:         default: break;
+[e :U 71 ]
+[e $U 57  ]
+"130
+[; ;digit_display_test.c: 130:     }
+}
+[e $U 57  ]
+[e :U 58 ]
+[e [\ -> _digito `i , $ -> 0 `i 59
+ , $ -> 1 `i 60
+ , $ -> 2 `i 61
+ , $ -> 3 `i 62
+ , $ -> 4 `i 63
+ , $ -> 5 `i 64
+ , $ -> 6 `i 65
+ , $ -> 7 `i 66
+ , $ -> 8 `i 67
+ , $ -> 9 `i 68
+ , $ -> 10 `i 69
+ , $ -> 128 `i 70
+ 71 ]
+[e :U 57 ]
+"132
+[; ;digit_display_test.c: 132:     switch(posicion)
+[e $U 73  ]
+"133
+[; ;digit_display_test.c: 133:     {
+{
+"134
+[; ;digit_display_test.c: 134:         case Di1: PORTAbits.RA2 = 1;
+[e :U 74 ]
+[e = . . _PORTAbits 0 2 -> -> 1 `i `uc ]
+"135
+[; ;digit_display_test.c: 135:         break;
+[e $U 72  ]
+"136
+[; ;digit_display_test.c: 136:         case Di2: PORTAbits.RA3 = 1;
+[e :U 75 ]
+[e = . . _PORTAbits 0 3 -> -> 1 `i `uc ]
+"137
+[; ;digit_display_test.c: 137:         break;
+[e $U 72  ]
+"138
+[; ;digit_display_test.c: 138:         default:
+[e :U 76 ]
+"139
+[; ;digit_display_test.c: 139:         break;
+[e $U 72  ]
+"140
+[; ;digit_display_test.c: 140:     }
+}
+[e $U 72  ]
+[e :U 73 ]
+[e [\ -> _posicion `ui , $ -> . `E498 0 `ui 74
+ , $ -> . `E498 1 `ui 75
+ 76 ]
+[e :U 72 ]
+"142
+[; ;digit_display_test.c: 142:     PORTB = digitoHex;
+[e = _PORTB _digitoHex ]
+"144
+[; ;digit_display_test.c: 144: }
+[e :UE 56 ]
+}
+"146
+[; ;digit_display_test.c: 146: struct DigitosEntero descomponerEntero(unsigned int numero)
+[v _descomponerEntero `(S51 ~T0 @X0 1 ef1`ui ]
+"147
+[; ;digit_display_test.c: 147: {
+{
+[e :U _descomponerEntero ]
+"146
+[; ;digit_display_test.c: 146: struct DigitosEntero descomponerEntero(unsigned int numero)
+[v _numero `ui ~T0 @X0 1 r1 ]
+"147
+[; ;digit_display_test.c: 147: {
+[f ]
+"148
+[; ;digit_display_test.c: 148:     unsigned int resto;
+[v _resto `ui ~T0 @X0 1 a ]
+"149
+[; ;digit_display_test.c: 149:     struct DigitosEntero miEntero;
+[v _miEntero `S51 ~T0 @X0 1 a ]
+"151
+[; ;digit_display_test.c: 151:     miEntero.millares = numero / 1000;
+[e = . _miEntero 3 -> / _numero -> -> 1000 `i `ui `uc ]
+"152
+[; ;digit_display_test.c: 152:     resto = numero % 1000;
+[e = _resto % _numero -> -> 1000 `i `ui ]
+"154
+[; ;digit_display_test.c: 154:     miEntero.centenas = resto / 100;
+[e = . _miEntero 2 -> / _resto -> -> 100 `i `ui `uc ]
+"155
+[; ;digit_display_test.c: 155:     resto = resto % 100;
+[e = _resto % _resto -> -> 100 `i `ui ]
+"157
+[; ;digit_display_test.c: 157:     miEntero.decenas = resto / 10;
+[e = . _miEntero 1 -> / _resto -> -> 10 `i `ui `uc ]
+"158
+[; ;digit_display_test.c: 158:     resto = resto % 10;
+[e = _resto % _resto -> -> 10 `i `ui ]
+"160
+[; ;digit_display_test.c: 160:     miEntero.unidades = resto;
+[e = . _miEntero 0 -> _resto `uc ]
+"162
+[; ;digit_display_test.c: 162:     return miEntero;
+[e ) _miEntero ]
+[e $UE 77  ]
+"163
+[; ;digit_display_test.c: 163: }
+[e :UE 77 ]
+}

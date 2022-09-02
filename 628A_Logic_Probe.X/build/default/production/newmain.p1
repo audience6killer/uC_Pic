@@ -1,0 +1,246 @@
+Version 4.0 HI-TECH Software Intermediate Code
+[p mainexit ]
+"774 /opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 774:     struct {
+[s S29 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S29 . CM CIS C1INV C2INV C1OUT C2OUT ]
+"782
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 782:     struct {
+[s S30 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S30 . CM0 CM1 CM2 ]
+"773
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 773: typedef union {
+[u S28 `S29 1 `S30 1 ]
+[n S28 . . . ]
+"788
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 788: extern volatile CMCONbits_t CMCONbits __attribute__((address(0x01F)));
+[v _CMCONbits `VS28 ~T0 @X0 0 e@31 ]
+"914
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 914:     struct {
+[s S35 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S35 . TRISA0 TRISA1 TRISA2 TRISA3 TRISA4 TRISA5 TRISA6 TRISA7 ]
+"913
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 913: typedef union {
+[u S34 `S35 1 ]
+[n S34 . . ]
+"925
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 925: extern volatile TRISAbits_t TRISAbits __attribute__((address(0x085)));
+[v _TRISAbits `VS34 ~T0 @X0 0 e@133 ]
+"970
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 970: extern volatile unsigned char TRISB __attribute__((address(0x086)));
+[v _TRISB `Vuc ~T0 @X0 0 e@134 ]
+"173
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 173:     struct {
+[s S6 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S6 . RA0 RA1 RA2 RA3 RA4 RA5 RA6 RA7 ]
+"172
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 172: typedef union {
+[u S5 `S6 1 ]
+[n S5 . . ]
+"184
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 184: extern volatile PORTAbits_t PORTAbits __attribute__((address(0x005)));
+[v _PORTAbits `VS5 ~T0 @X0 0 e@5 ]
+"229
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 229: extern volatile unsigned char PORTB __attribute__((address(0x006)));
+[v _PORTB `Vuc ~T0 @X0 0 e@6 ]
+"55 /opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 55: __asm("INDF equ 00h");
+[; <" INDF equ 00h ;# ">
+"62
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 62: __asm("TMR0 equ 01h");
+[; <" TMR0 equ 01h ;# ">
+"69
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 69: __asm("PCL equ 02h");
+[; <" PCL equ 02h ;# ">
+"76
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 76: __asm("STATUS equ 03h");
+[; <" STATUS equ 03h ;# ">
+"162
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 162: __asm("FSR equ 04h");
+[; <" FSR equ 04h ;# ">
+"169
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 169: __asm("PORTA equ 05h");
+[; <" PORTA equ 05h ;# ">
+"231
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 231: __asm("PORTB equ 06h");
+[; <" PORTB equ 06h ;# ">
+"293
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 293: __asm("PCLATH equ 0Ah");
+[; <" PCLATH equ 0Ah ;# ">
+"313
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 313: __asm("INTCON equ 0Bh");
+[; <" INTCON equ 0Bh ;# ">
+"391
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 391: __asm("PIR1 equ 0Ch");
+[; <" PIR1 equ 0Ch ;# ">
+"448
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 448: __asm("TMR1 equ 0Eh");
+[; <" TMR1 equ 0Eh ;# ">
+"455
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 455: __asm("TMR1L equ 0Eh");
+[; <" TMR1L equ 0Eh ;# ">
+"462
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 462: __asm("TMR1H equ 0Fh");
+[; <" TMR1H equ 0Fh ;# ">
+"469
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 469: __asm("T1CON equ 010h");
+[; <" T1CON equ 010h ;# ">
+"528
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 528: __asm("TMR2 equ 011h");
+[; <" TMR2 equ 011h ;# ">
+"535
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 535: __asm("T2CON equ 012h");
+[; <" T2CON equ 012h ;# ">
+"606
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 606: __asm("CCPR1 equ 015h");
+[; <" CCPR1 equ 015h ;# ">
+"613
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 613: __asm("CCPR1L equ 015h");
+[; <" CCPR1L equ 015h ;# ">
+"620
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 620: __asm("CCPR1H equ 016h");
+[; <" CCPR1H equ 016h ;# ">
+"627
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 627: __asm("CCP1CON equ 017h");
+[; <" CCP1CON equ 017h ;# ">
+"685
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 685: __asm("RCSTA equ 018h");
+[; <" RCSTA equ 018h ;# ">
+"756
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 756: __asm("TXREG equ 019h");
+[; <" TXREG equ 019h ;# ">
+"763
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 763: __asm("RCREG equ 01Ah");
+[; <" RCREG equ 01Ah ;# ">
+"770
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 770: __asm("CMCON equ 01Fh");
+[; <" CMCON equ 01Fh ;# ">
+"840
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 840: __asm("OPTION_REG equ 081h");
+[; <" OPTION_REG equ 081h ;# ">
+"910
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 910: __asm("TRISA equ 085h");
+[; <" TRISA equ 085h ;# ">
+"972
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 972: __asm("TRISB equ 086h");
+[; <" TRISB equ 086h ;# ">
+"1034
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1034: __asm("PIE1 equ 08Ch");
+[; <" PIE1 equ 08Ch ;# ">
+"1091
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1091: __asm("PCON equ 08Eh");
+[; <" PCON equ 08Eh ;# ">
+"1140
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1140: __asm("PR2 equ 092h");
+[; <" PR2 equ 092h ;# ">
+"1147
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1147: __asm("TXSTA equ 098h");
+[; <" TXSTA equ 098h ;# ">
+"1204
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1204: __asm("SPBRG equ 099h");
+[; <" SPBRG equ 099h ;# ">
+"1211
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1211: __asm("EEDATA equ 09Ah");
+[; <" EEDATA equ 09Ah ;# ">
+"1218
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1218: __asm("EEADR equ 09Bh");
+[; <" EEADR equ 09Bh ;# ">
+"1225
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1225: __asm("EECON1 equ 09Ch");
+[; <" EECON1 equ 09Ch ;# ">
+"1263
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1263: __asm("EECON2 equ 09Dh");
+[; <" EECON2 equ 09Dh ;# ">
+"1270
+[; ;/opt/microchip/xc8/v2.35/pic/include/proc/pic16f628a.h: 1270: __asm("VRCON equ 09Fh");
+[; <" VRCON equ 09Fh ;# ">
+"15 newmain.c
+[p x FOSC  =  XT     ]
+"16
+[p x MCLRE  =  ON    ]
+"17
+[p x WDTE  =  OFF ]
+"18
+[p x PWRTE  =  OFF ]
+"19
+[p x BOREN  =  OFF ]
+"20
+[p x LVP  =  OFF ]
+"21
+[p x CPD  =  OFF ]
+"22
+[p x CP  =  OFF ]
+[v $root$_main `(v ~T0 @X0 0 e ]
+"36
+[; ;newmain.c: 36: int main(void) {
+[v _main `(i ~T0 @X0 1 ef ]
+{
+[e :U _main ]
+[f ]
+"38
+[; ;newmain.c: 38:     CMCONbits.CM = 0b111;
+[e = . . _CMCONbits 0 0 -> -> 7 `i `uc ]
+"39
+[; ;newmain.c: 39:     TRISAbits.TRISA1 = 1;
+[e = . . _TRISAbits 0 1 -> -> 1 `i `uc ]
+"40
+[; ;newmain.c: 40:     TRISB = 0;
+[e = _TRISB -> -> 0 `i `uc ]
+"42
+[; ;newmain.c: 42:     const unsigned char b0_b3 = 0b00001111;
+[v F498 `Cuc ~T0 @X0 1 s b0_b3 ]
+[i F498
+-> -> 15 `i `uc
+]
+"43
+[; ;newmain.c: 43:     const unsigned char b4_b7 = 0b11110000;
+[v F499 `Cuc ~T0 @X0 1 s b4_b7 ]
+[i F499
+-> -> 240 `i `uc
+]
+"45
+[; ;newmain.c: 45:     while(1)
+[e :U 53 ]
+"46
+[; ;newmain.c: 46:     {
+{
+"47
+[; ;newmain.c: 47:         if(PORTAbits.RA1 == 1)
+[e $ ! == -> . . _PORTAbits 0 1 `i -> 1 `i 55  ]
+"48
+[; ;newmain.c: 48:         {
+{
+"49
+[; ;newmain.c: 49:             PORTB = b0_b3;
+[e = _PORTB F498 ]
+"50
+[; ;newmain.c: 50:         }
+}
+[e $U 56  ]
+"51
+[; ;newmain.c: 51:         else
+[e :U 55 ]
+"52
+[; ;newmain.c: 52:         {
+{
+"53
+[; ;newmain.c: 53:             PORTB = b4_b7;
+[e = _PORTB F499 ]
+"54
+[; ;newmain.c: 54:         }
+}
+[e :U 56 ]
+"55
+[; ;newmain.c: 55:     }
+}
+[e :U 52 ]
+[e $U 53  ]
+[e :U 54 ]
+"57
+[; ;newmain.c: 57:     return 0;
+[e ) -> 0 `i ]
+[e $UE 51  ]
+"58
+[; ;newmain.c: 58: }
+[e :UE 51 ]
+}

@@ -1,0 +1,118 @@
+MPLINK 5.08, LINKER
+Linker Map File - Created Mon Aug  1 21:04:46 2022
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x0002c8
+                   .cinit    romdata   0x000164    program   0x000004
+.config_2007_BUILD/DEFAULT/PRODUCTION/EJERCIC       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000165      
+                            0x002007    0x002007      
+            359 out of 8454 program addresses used, program memory utilization is 4%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                CINCOPORC   0x000035    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+            CINCUENTAPORC   0x0000cc    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+                   INICIO   0x00000b    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+              OCHENTAPORC   0x000117    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+               VEINTEPORC   0x000082    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_000C   0x00000c    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0018   0x000018    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_001A   0x00001a    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0021   0x000021    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_002D   0x00002d    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_002F   0x00002f    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_003D   0x00003d    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0050   0x000050    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0052   0x000052    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0065   0x000065    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0067   0x000067    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_006E   0x00006e    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_007A   0x00007a    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_007C   0x00007c    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_008E   0x00008e    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0090   0x000090    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_009D   0x00009d    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_00AF   0x0000af    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_00B1   0x0000b1    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_00B8   0x0000b8    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_00C4   0x0000c4    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_00C6   0x0000c6    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_00D8   0x0000d8    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_00DA   0x0000da    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_00E7   0x0000e7    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_00FA   0x0000fa    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_00FC   0x0000fc    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0103   0x000103    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_010F   0x00010f    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0111   0x000111    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0123   0x000123    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0125   0x000125    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0132   0x000132    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0146   0x000146    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0148   0x000148    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_014F   0x00014f    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_015B   0x00015b    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_015D   0x00015d    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   INICIO   0x00000b    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_000C   0x00000c    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0018   0x000018    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_001A   0x00001a    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0021   0x000021    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_002D   0x00002d    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_002F   0x00002f    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+                CINCOPORC   0x000035    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_003D   0x00003d    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0050   0x000050    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0052   0x000052    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0065   0x000065    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0067   0x000067    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_006E   0x00006e    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_007A   0x00007a    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_007C   0x00007c    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+               VEINTEPORC   0x000082    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_008E   0x00008e    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0090   0x000090    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_009D   0x00009d    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_00AF   0x0000af    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_00B1   0x0000b1    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_00B8   0x0000b8    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_00C4   0x0000c4    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_00C6   0x0000c6    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+            CINCUENTAPORC   0x0000cc    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_00D8   0x0000d8    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_00DA   0x0000da    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_00E7   0x0000e7    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_00FA   0x0000fa    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_00FC   0x0000fc    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0103   0x000103    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_010F   0x00010f    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0111   0x000111    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+              OCHENTAPORC   0x000117    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0123   0x000123    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0125   0x000125    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0132   0x000132    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0146   0x000146    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_0148   0x000148    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_014F   0x00014f    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_015B   0x00015b    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+             _.org_0_015D   0x00015d    program     static /home/vill4in/MPLABXProjects/877A_Ejercicio_18_PWM_ASM.X/EJERCICIO_18.asm
+
+

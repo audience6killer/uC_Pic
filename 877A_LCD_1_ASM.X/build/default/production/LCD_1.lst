@@ -1,0 +1,1489 @@
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      00002 ;
+                      00003 ;                       LCD PROGRAMA UNO
+                      00004 ;
+                      00005 ;   MEDIANTE EL USO DE TABLAS SE REALIZARA UN CONTADOR HEX DE 0 A F    
+                      00006 ;   SIENDO LA DURACION DE CADA DIGITO DE UN SEEGUNDO
+                      00007 ;    
+                      00008 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      00009 
+                      00010 ;   CONFIGURACION DEL PIC.......................................................
+                      00011     
+                      00012                 PROCESSOR       16F877A
+                      00013                 INCLUDE         <p16f877a.inc>
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ; Build date : Nov 22 2017
+                      00005 ;  MPASM PIC16F877A processor include
+                      00006 ; 
+                      00007 ;  (c) Copyright 1999-2017 Microchip Technology, All rights reserved
+                      00008 ;==========================================================================
+                      00009 
+                      00567         LIST
+                      00014                 INCLUDE         </home/vill4in/MPLABXProjects/Library.X/RutinasTiempo.asm>
+                      00001 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      00002 ;
+                      00003 ;                   SUBRUTINAS DE TIEMPO
+                      00004 ;
+                      00005 ;       MACROS DE SUBRUTINAS DE TIEMPO DE UNA, DOS Y TRES VARIABLES
+                      00006 ;       
+                      00007 ;       SE EMPLEAN LOS REGISTROS RAM DE 0X60 HASTA 0X68 PARA ALMACENAR
+                      00008 ;       LAS VARIABLES
+                      00009 ;
+                      00010 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      00011     
+                      00012 ;   MACRO Y SUBRUTINA DE UNA VARIABLE, CICLOS_MAQ_MAX = 1797
+                      00013 ;   SE OCUPA LA DIRECCION 0X60 DE LA RAM PARA GUARDAR EL VALOR DE VAR1
+                      00014     
+                      00015 SUBT1V      MACRO       VAR1
+                      00016             LOCAL       DECREV1
+                      00017             MOVLW       VAR1
+                      00018             MOVWF       0X60
+                      00019 DECREV1:    NOP
+                      00020             NOP
+                      00021             NOP
+                      00022             NOP
+                      00023             DECFSZ      0X60,F
+                      00024             GOTO        DECREV1
+                      00025             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+                      00026             NOP                         ; LOS DE CALL
+                      00027             NOP
+                      00028             NOP
+                      00029             ENDM
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00030     
+                      00031 ;   MACRO Y SUBRUTINA DE DOS VARIABLES, CICLOS_MAQ_MAX = 459,783
+                      00032 ;   SE OCUPA LA DIRECCION 0X61,62 DE LA RAM PARA GUARDAR EL VALOR DE VAR1,
+                      00033 ;   VAR2
+                      00034 ;   TAMBIEN SE OCUPA LA DIRECCION  0X63 COMO REGISTRO AUXILIAR EN EL DECREMENTO
+                      00035     
+                      00036 SUBT2V      MACRO       VAR1,VAR2
+                      00037             LOCAL       DECREV2,RECARGAV2
+                      00038             MOVLW       VAR1
+                      00039             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+                      00040             MOVLW       VAR2
+                      00041             MOVWF       0X62
+                      00042 RECARGAV2:  MOVF        0X62,W
+                      00043             MOVWF       0X63
+                      00044 DECREV2:    NOP
+                      00045             NOP
+                      00046             NOP
+                      00047             NOP
+                      00048             DECFSZ      0X63,F
+                      00049             GOTO        DECREV2
+                      00050             DECFSZ      0X61,F
+                      00051             GOTO        RECARGAV2
+                      00052             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+                      00053             NOP                         ; LOS DE CALL
+                      00054             NOP
+                      00055             NOP
+                      00056             ENDM
+                      00057 
+                      00058 
+                      00059             
+                      00060 ;   MACRO Y SUBRUTINA DE TRES VARIABLES, CICLOS_MAQ_MAX = 117,703,689
+                      00061 ;   SE OCUPA LA DIRECCION 0X64,65,66 DE LA RAM PARA GUARDAR EL VALOR DE VAR1,
+                      00062 ;   VAR2,VAR3
+                      00063 ;   TAMBIEN SE OCUPAN LOS REGISTROS, 0X67 Y 0X68 COMO AUXILIARES
+                      00064     
+  00000064            00065 VAR1        EQU         0X64
+  00000065            00066 VAR2        EQU         0X65
+  00000066            00067 VAR3        EQU         0X66
+  00000067            00068 AUXV2       EQU         0X67
+  00000068            00069 AUXV3       EQU         0X68
+                      00070                 
+                      00071 SUBT3V      MACRO       V1,V2,V3
+                      00072             LOCAL       ST3V, RECARGA3V, DECRE3V
+                      00073             MOVLW       V1
+                      00074             MOVWF       VAR1            ; VALOR DE MAYOR PESO EN ANIDACION
+                      00075             MOVLW       V2
+                      00076             MOVWF       VAR2
+                      00077             MOVLW       V3              ; VALOR DE MENOR PESO EN ANIDACION
+                      00078             MOVWF       VAR3
+                      00079 ST3V:       MOVF        VAR2,W          ; VAR2  
+                      00080             MOVWF       AUXV2
+                      00081 RECARGA3V:  MOVF        VAR3,W          ; VAR3  
+                      00082             MOVWF       AUXV3
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00083 DECRE3V:    NOP                         ; 
+                      00084             NOP
+                      00085             NOP
+                      00086             NOP
+                      00087             DECFSZ      AUXV3,F         ; VAR3_AUX
+                      00088             GOTO        DECRE3V
+                      00089             DECFSZ      AUXV2,F         ; VAR2_AUX
+                      00090             GOTO        RECARGA3V
+                      00091             DECFSZ      VAR1,F          ; VAR1
+                      00092             GOTO        ST3V
+                      00093             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+                      00094             NOP                         ; LOS DE CALL
+                      00095             NOP
+                      00096             NOP
+                      00097             ENDM
+                      00098             
+                      00099             
+                      00100             
+2007   3F31           00015                 __CONFIG        0X3F31
+                      00016                 ORG             0X0000
+                      00017                 
+                      00018 ;   CONFIGURACION DE LOS PUERTOS................................................
+                      00019                 
+                      00020                 #DEFINE         LCD             PORTD       ; D4 = RD0, D5 = RD1, ETC 
+                      00021                 #DEFINE         EN_ON           BSF         PORTD,5
+                      00022                 #DEFINE         EN_OFF          BCF         PORTD,5
+                      00023                 #DEFINE         RS_ON           BSF         PORTD,4
+                      00024                 #DEFINE         RS_OFF          BCF         PORTD,4
+0000   0188           00025                 CLRF            PORTD
+0001   1683           00026                 BSF             STATUS,RP0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0002   0188           00027                 CLRF            TRISD           ; PORTD (DISPLAY) COMO SALIDA
+0003   1283           00028                 BCF             STATUS,RP0
+                      00029                 
+                      00030 ;   MACROS......................................................................
+                      00031 
+                      00032 ESCRIBIR_CAR    MACRO           CARACTER
+                      00033                 ;       HIGH BYTE
+                      00034                 MOVLW           CARACTER
+                      00035                 SWAPF           W,W
+                      00036                 ANDLW           B'00001111'
+                      00037                 MOVWF           LCD
+                      00038                 RS_ON
+                      00039                 ENABLE_ON
+                      00040                 RS_OFF
+                      00041                 
+                      00042                 ;       LOW BYTE        
+                      00043                 MOVLW           CARACTER
+                      00044                 ANDLW           B'00001111'
+                      00045                 MOVWF           PORTD
+                      00046                 RS_ON
+                      00047                 ENABLE_ON
+                      00048                 RS_OFF
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00049                 ENDM
+                      00050                 
+                      00051 ESCRIBIR_COM    MACRO           COMANDO
+                      00052                 ;       HIGH BYTE
+                      00053                 MOVLW           COMANDO
+                      00054                 SWAPF           W,W
+                      00055                 ANDLW           B'00001111'
+                      00056                 MOVWF           LCD
+                      00057                 RS_OFF
+                      00058                 ENABLE_ON
+                      00059                 RS_ON
+                      00060                 ;       LOW BYTE        
+                      00061                 MOVLW           COMANDO
+                      00062                 ANDLW           B'00001111'
+                      00063                 MOVWF           PORTD
+                      00064                 RS_OFF
+                      00065                 ENABLE_ON
+                      00066                 ENDM
+                      00067                 
+                      00068 ENABLE_ON       MACRO
+                      00069                 EN_ON
+                      00070                 NOP
+                      00071                 NOP
+                      00072                 NOP
+                      00073                 NOP
+                      00074                 EN_OFF
+                      00075                 SUBT2V          .8,.35          ; 1 ms
+                      00076                 ENDM
+                      00077         
+                      00078 ;   PROGRAMA PRINCIPAL..........................................................
+                      00079                 
+                      00080 INIT:           SUBT3V          .5,.38,.37      ; 50 ms
+  0000                    M             LOCAL       ST3V, RECARGA3V, DECRE3V
+0004   3005               M             MOVLW       .5
+0005   00E4               M             MOVWF       VAR1            ; VALOR DE MAYOR PESO EN ANIDACION
+0006   3026               M             MOVLW       .38
+0007   00E5               M             MOVWF       VAR2
+0008   3025               M             MOVLW       .37             ; VALOR DE MENOR PESO EN ANIDACION
+0009   00E6               M             MOVWF       VAR3
+000A   0865               M ST3V:       MOVF        VAR2,W          ; VAR2  
+000B   00E7               M             MOVWF       AUXV2
+000C   0866               M RECARGA3V:  MOVF        VAR3,W          ; VAR3  
+000D   00E8               M             MOVWF       AUXV3
+000E   0000               M DECRE3V:    NOP                         ; 
+000F   0000               M             NOP
+0010   0000               M             NOP
+0011   0000               M             NOP
+0012   0BE8               M             DECFSZ      AUXV3,F         ; VAR3_AUX
+0013   2???               M             GOTO        DECRE3V
+0014   0BE7               M             DECFSZ      AUXV2,F         ; VAR2_AUX
+0015   2???               M             GOTO        RECARGA3V
+0016   0BE4               M             DECFSZ      VAR1,F          ; VAR1
+0017   2???               M             GOTO        ST3V
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0018   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+0019   0000               M             NOP                         ; LOS DE CALL
+001A   0000               M             NOP
+001B   0000               M             NOP
+  00000000            00081 I = 0                                           ; VARIABLE DE COMPILACION
+                      00082                 WHILE           I < 3
+001C   3003           00083                 MOVLW           B'00000011'
+001D   0088           00084                 MOVWF           LCD
+001E   1688           00085                 EN_ON
+                      00086                 SUBT3V          .1,.18,.39      ; 5 ms
+  0000                    M             LOCAL       ST3V, RECARGA3V, DECRE3V
+001F   3001               M             MOVLW       .1
+0020   00E4               M             MOVWF       VAR1            ; VALOR DE MAYOR PESO EN ANIDACION
+0021   3012               M             MOVLW       .18
+0022   00E5               M             MOVWF       VAR2
+0023   3027               M             MOVLW       .39             ; VALOR DE MENOR PESO EN ANIDACION
+0024   00E6               M             MOVWF       VAR3
+0025   0865               M ST3V:       MOVF        VAR2,W          ; VAR2  
+0026   00E7               M             MOVWF       AUXV2
+0027   0866               M RECARGA3V:  MOVF        VAR3,W          ; VAR3  
+0028   00E8               M             MOVWF       AUXV3
+0029   0000               M DECRE3V:    NOP                         ; 
+002A   0000               M             NOP
+002B   0000               M             NOP
+002C   0000               M             NOP
+002D   0BE8               M             DECFSZ      AUXV3,F         ; VAR3_AUX
+002E   2???               M             GOTO        DECRE3V
+002F   0BE7               M             DECFSZ      AUXV2,F         ; VAR2_AUX
+0030   2???               M             GOTO        RECARGA3V
+0031   0BE4               M             DECFSZ      VAR1,F          ; VAR1
+0032   2???               M             GOTO        ST3V
+0033   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+0034   0000               M             NOP                         ; LOS DE CALL
+0035   0000               M             NOP
+0036   0000               M             NOP
+0037   1288           00087                 EN_OFF
+  00000001            00088 I += 1
+0038   3003           00083                 MOVLW           B'00000011'
+0039   0088           00084                 MOVWF           LCD
+003A   1688           00085                 EN_ON
+                      00086                 SUBT3V          .1,.18,.39      ; 5 ms
+  0000                    M             LOCAL       ST3V, RECARGA3V, DECRE3V
+003B   3001               M             MOVLW       .1
+003C   00E4               M             MOVWF       VAR1            ; VALOR DE MAYOR PESO EN ANIDACION
+003D   3012               M             MOVLW       .18
+003E   00E5               M             MOVWF       VAR2
+003F   3027               M             MOVLW       .39             ; VALOR DE MENOR PESO EN ANIDACION
+0040   00E6               M             MOVWF       VAR3
+0041   0865               M ST3V:       MOVF        VAR2,W          ; VAR2  
+0042   00E7               M             MOVWF       AUXV2
+0043   0866               M RECARGA3V:  MOVF        VAR3,W          ; VAR3  
+0044   00E8               M             MOVWF       AUXV3
+0045   0000               M DECRE3V:    NOP                         ; 
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0046   0000               M             NOP
+0047   0000               M             NOP
+0048   0000               M             NOP
+0049   0BE8               M             DECFSZ      AUXV3,F         ; VAR3_AUX
+004A   2???               M             GOTO        DECRE3V
+004B   0BE7               M             DECFSZ      AUXV2,F         ; VAR2_AUX
+004C   2???               M             GOTO        RECARGA3V
+004D   0BE4               M             DECFSZ      VAR1,F          ; VAR1
+004E   2???               M             GOTO        ST3V
+004F   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+0050   0000               M             NOP                         ; LOS DE CALL
+0051   0000               M             NOP
+0052   0000               M             NOP
+0053   1288           00087                 EN_OFF
+  00000002            00088 I += 1
+0054   3003           00083                 MOVLW           B'00000011'
+0055   0088           00084                 MOVWF           LCD
+0056   1688           00085                 EN_ON
+                      00086                 SUBT3V          .1,.18,.39      ; 5 ms
+  0000                    M             LOCAL       ST3V, RECARGA3V, DECRE3V
+0057   3001               M             MOVLW       .1
+0058   00E4               M             MOVWF       VAR1            ; VALOR DE MAYOR PESO EN ANIDACION
+0059   3012               M             MOVLW       .18
+005A   00E5               M             MOVWF       VAR2
+005B   3027               M             MOVLW       .39             ; VALOR DE MENOR PESO EN ANIDACION
+005C   00E6               M             MOVWF       VAR3
+005D   0865               M ST3V:       MOVF        VAR2,W          ; VAR2  
+005E   00E7               M             MOVWF       AUXV2
+005F   0866               M RECARGA3V:  MOVF        VAR3,W          ; VAR3  
+0060   00E8               M             MOVWF       AUXV3
+0061   0000               M DECRE3V:    NOP                         ; 
+0062   0000               M             NOP
+0063   0000               M             NOP
+0064   0000               M             NOP
+0065   0BE8               M             DECFSZ      AUXV3,F         ; VAR3_AUX
+0066   2???               M             GOTO        DECRE3V
+0067   0BE7               M             DECFSZ      AUXV2,F         ; VAR2_AUX
+0068   2???               M             GOTO        RECARGA3V
+0069   0BE4               M             DECFSZ      VAR1,F          ; VAR1
+006A   2???               M             GOTO        ST3V
+006B   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+006C   0000               M             NOP                         ; LOS DE CALL
+006D   0000               M             NOP
+006E   0000               M             NOP
+006F   1288           00087                 EN_OFF
+  00000003            00088 I += 1
+                      00089                 ENDW
+0070   3002           00090                 MOVLW           B'00000010'
+0071   1688           00091                 EN_ON
+                      00092                 SUBT3V          .1,.18,.39
+  0000                    M             LOCAL       ST3V, RECARGA3V, DECRE3V
+0072   3001               M             MOVLW       .1
+0073   00E4               M             MOVWF       VAR1            ; VALOR DE MAYOR PESO EN ANIDACION
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0074   3012               M             MOVLW       .18
+0075   00E5               M             MOVWF       VAR2
+0076   3027               M             MOVLW       .39             ; VALOR DE MENOR PESO EN ANIDACION
+0077   00E6               M             MOVWF       VAR3
+0078   0865               M ST3V:       MOVF        VAR2,W          ; VAR2  
+0079   00E7               M             MOVWF       AUXV2
+007A   0866               M RECARGA3V:  MOVF        VAR3,W          ; VAR3  
+007B   00E8               M             MOVWF       AUXV3
+007C   0000               M DECRE3V:    NOP                         ; 
+007D   0000               M             NOP
+007E   0000               M             NOP
+007F   0000               M             NOP
+0080   0BE8               M             DECFSZ      AUXV3,F         ; VAR3_AUX
+0081   2???               M             GOTO        DECRE3V
+0082   0BE7               M             DECFSZ      AUXV2,F         ; VAR2_AUX
+0083   2???               M             GOTO        RECARGA3V
+0084   0BE4               M             DECFSZ      VAR1,F          ; VAR1
+0085   2???               M             GOTO        ST3V
+0086   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+0087   0000               M             NOP                         ; LOS DE CALL
+0088   0000               M             NOP
+0089   0000               M             NOP
+008A   1288           00093                 EN_OFF
+                      00094                 ;   FUNCTION SET
+                      00095                 ESCRIBIR_COM    B'00101100'
+                          M                 ;       HIGH BYTE
+008B   302C               M                 MOVLW           B'00101100'
+008C   0E00               M                 SWAPF           W,W
+008D   390F               M                 ANDLW           B'00001111'
+008E   0088               M                 MOVWF           LCD
+008F   1208               M                 RS_OFF
+                          M                 ENABLE_ON
+0090   1688               M                 EN_ON
+0091   0000               M                 NOP
+0092   0000               M                 NOP
+0093   0000               M                 NOP
+0094   0000               M                 NOP
+0095   1288               M                 EN_OFF
+                          M                 SUBT2V          .8,.35          ; 1 ms
+  0000                    M             LOCAL       DECREV2,RECARGAV2
+0096   3008               M             MOVLW       .8
+0097   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+0098   3023               M             MOVLW       .35
+0099   00E2               M             MOVWF       0X62
+009A   0862               M RECARGAV2:  MOVF        0X62,W
+009B   00E3               M             MOVWF       0X63
+009C   0000               M DECREV2:    NOP
+009D   0000               M             NOP
+009E   0000               M             NOP
+009F   0000               M             NOP
+00A0   0BE3               M             DECFSZ      0X63,F
+00A1   2???               M             GOTO        DECREV2
+00A2   0BE1               M             DECFSZ      0X61,F
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00A3   2???               M             GOTO        RECARGAV2
+00A4   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+00A5   0000               M             NOP                         ; LOS DE CALL
+00A6   0000               M             NOP
+00A7   0000               M             NOP
+00A8   1608               M                 RS_ON
+                          M                 ;       LOW BYTE        
+00A9   302C               M                 MOVLW           B'00101100'
+00AA   390F               M                 ANDLW           B'00001111'
+00AB   0088               M                 MOVWF           PORTD
+00AC   1208               M                 RS_OFF
+                          M                 ENABLE_ON
+00AD   1688               M                 EN_ON
+00AE   0000               M                 NOP
+00AF   0000               M                 NOP
+00B0   0000               M                 NOP
+00B1   0000               M                 NOP
+00B2   1288               M                 EN_OFF
+                          M                 SUBT2V          .8,.35          ; 1 ms
+  0000                    M             LOCAL       DECREV2,RECARGAV2
+00B3   3008               M             MOVLW       .8
+00B4   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+00B5   3023               M             MOVLW       .35
+00B6   00E2               M             MOVWF       0X62
+00B7   0862               M RECARGAV2:  MOVF        0X62,W
+00B8   00E3               M             MOVWF       0X63
+00B9   0000               M DECREV2:    NOP
+00BA   0000               M             NOP
+00BB   0000               M             NOP
+00BC   0000               M             NOP
+00BD   0BE3               M             DECFSZ      0X63,F
+00BE   2???               M             GOTO        DECREV2
+00BF   0BE1               M             DECFSZ      0X61,F
+00C0   2???               M             GOTO        RECARGAV2
+00C1   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+00C2   0000               M             NOP                         ; LOS DE CALL
+00C3   0000               M             NOP
+00C4   0000               M             NOP
+                      00096                 ;   DISPLAY OFF
+                      00097                 ESCRIBIR_COM    B'00001000'
+                          M                 ;       HIGH BYTE
+00C5   3008               M                 MOVLW           B'00001000'
+00C6   0E00               M                 SWAPF           W,W
+00C7   390F               M                 ANDLW           B'00001111'
+00C8   0088               M                 MOVWF           LCD
+00C9   1208               M                 RS_OFF
+                          M                 ENABLE_ON
+00CA   1688               M                 EN_ON
+00CB   0000               M                 NOP
+00CC   0000               M                 NOP
+00CD   0000               M                 NOP
+00CE   0000               M                 NOP
+00CF   1288               M                 EN_OFF
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE  9
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                          M                 SUBT2V          .8,.35          ; 1 ms
+  0000                    M             LOCAL       DECREV2,RECARGAV2
+00D0   3008               M             MOVLW       .8
+00D1   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+00D2   3023               M             MOVLW       .35
+00D3   00E2               M             MOVWF       0X62
+00D4   0862               M RECARGAV2:  MOVF        0X62,W
+00D5   00E3               M             MOVWF       0X63
+00D6   0000               M DECREV2:    NOP
+00D7   0000               M             NOP
+00D8   0000               M             NOP
+00D9   0000               M             NOP
+00DA   0BE3               M             DECFSZ      0X63,F
+00DB   2???               M             GOTO        DECREV2
+00DC   0BE1               M             DECFSZ      0X61,F
+00DD   2???               M             GOTO        RECARGAV2
+00DE   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+00DF   0000               M             NOP                         ; LOS DE CALL
+00E0   0000               M             NOP
+00E1   0000               M             NOP
+00E2   1608               M                 RS_ON
+                          M                 ;       LOW BYTE        
+00E3   3008               M                 MOVLW           B'00001000'
+00E4   390F               M                 ANDLW           B'00001111'
+00E5   0088               M                 MOVWF           PORTD
+00E6   1208               M                 RS_OFF
+                          M                 ENABLE_ON
+00E7   1688               M                 EN_ON
+00E8   0000               M                 NOP
+00E9   0000               M                 NOP
+00EA   0000               M                 NOP
+00EB   0000               M                 NOP
+00EC   1288               M                 EN_OFF
+                          M                 SUBT2V          .8,.35          ; 1 ms
+  0000                    M             LOCAL       DECREV2,RECARGAV2
+00ED   3008               M             MOVLW       .8
+00EE   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+00EF   3023               M             MOVLW       .35
+00F0   00E2               M             MOVWF       0X62
+00F1   0862               M RECARGAV2:  MOVF        0X62,W
+00F2   00E3               M             MOVWF       0X63
+00F3   0000               M DECREV2:    NOP
+00F4   0000               M             NOP
+00F5   0000               M             NOP
+00F6   0000               M             NOP
+00F7   0BE3               M             DECFSZ      0X63,F
+00F8   2???               M             GOTO        DECREV2
+00F9   0BE1               M             DECFSZ      0X61,F
+00FA   2???               M             GOTO        RECARGAV2
+00FB   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+00FC   0000               M             NOP                         ; LOS DE CALL
+00FD   0000               M             NOP
+00FE   0000               M             NOP
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE 10
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00098                 ;  DISPLAY_CLEAR
+                      00099                 ESCRIBIR_COM    B'00000001'
+                          M                 ;       HIGH BYTE
+00FF   3001               M                 MOVLW           B'00000001'
+0100   0E00               M                 SWAPF           W,W
+0101   390F               M                 ANDLW           B'00001111'
+0102   0088               M                 MOVWF           LCD
+0103   1208               M                 RS_OFF
+                          M                 ENABLE_ON
+0104   1688               M                 EN_ON
+0105   0000               M                 NOP
+0106   0000               M                 NOP
+0107   0000               M                 NOP
+0108   0000               M                 NOP
+0109   1288               M                 EN_OFF
+                          M                 SUBT2V          .8,.35          ; 1 ms
+  0000                    M             LOCAL       DECREV2,RECARGAV2
+010A   3008               M             MOVLW       .8
+010B   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+010C   3023               M             MOVLW       .35
+010D   00E2               M             MOVWF       0X62
+010E   0862               M RECARGAV2:  MOVF        0X62,W
+010F   00E3               M             MOVWF       0X63
+0110   0000               M DECREV2:    NOP
+0111   0000               M             NOP
+0112   0000               M             NOP
+0113   0000               M             NOP
+0114   0BE3               M             DECFSZ      0X63,F
+0115   2???               M             GOTO        DECREV2
+0116   0BE1               M             DECFSZ      0X61,F
+0117   2???               M             GOTO        RECARGAV2
+0118   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+0119   0000               M             NOP                         ; LOS DE CALL
+011A   0000               M             NOP
+011B   0000               M             NOP
+011C   1608               M                 RS_ON
+                          M                 ;       LOW BYTE        
+011D   3001               M                 MOVLW           B'00000001'
+011E   390F               M                 ANDLW           B'00001111'
+011F   0088               M                 MOVWF           PORTD
+0120   1208               M                 RS_OFF
+                          M                 ENABLE_ON
+0121   1688               M                 EN_ON
+0122   0000               M                 NOP
+0123   0000               M                 NOP
+0124   0000               M                 NOP
+0125   0000               M                 NOP
+0126   1288               M                 EN_OFF
+                          M                 SUBT2V          .8,.35          ; 1 ms
+  0000                    M             LOCAL       DECREV2,RECARGAV2
+0127   3008               M             MOVLW       .8
+0128   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+0129   3023               M             MOVLW       .35
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE 11
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+012A   00E2               M             MOVWF       0X62
+012B   0862               M RECARGAV2:  MOVF        0X62,W
+012C   00E3               M             MOVWF       0X63
+012D   0000               M DECREV2:    NOP
+012E   0000               M             NOP
+012F   0000               M             NOP
+0130   0000               M             NOP
+0131   0BE3               M             DECFSZ      0X63,F
+0132   2???               M             GOTO        DECREV2
+0133   0BE1               M             DECFSZ      0X61,F
+0134   2???               M             GOTO        RECARGAV2
+0135   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+0136   0000               M             NOP                         ; LOS DE CALL
+0137   0000               M             NOP
+0138   0000               M             NOP
+                      00100                 ;   ENTRY MODE SET
+                      00101                 ESCRIBIR_COM    B'00000110'
+                          M                 ;       HIGH BYTE
+0139   3006               M                 MOVLW           B'00000110'
+013A   0E00               M                 SWAPF           W,W
+013B   390F               M                 ANDLW           B'00001111'
+013C   0088               M                 MOVWF           LCD
+013D   1208               M                 RS_OFF
+                          M                 ENABLE_ON
+013E   1688               M                 EN_ON
+013F   0000               M                 NOP
+0140   0000               M                 NOP
+0141   0000               M                 NOP
+0142   0000               M                 NOP
+0143   1288               M                 EN_OFF
+                          M                 SUBT2V          .8,.35          ; 1 ms
+  0000                    M             LOCAL       DECREV2,RECARGAV2
+0144   3008               M             MOVLW       .8
+0145   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+0146   3023               M             MOVLW       .35
+0147   00E2               M             MOVWF       0X62
+0148   0862               M RECARGAV2:  MOVF        0X62,W
+0149   00E3               M             MOVWF       0X63
+014A   0000               M DECREV2:    NOP
+014B   0000               M             NOP
+014C   0000               M             NOP
+014D   0000               M             NOP
+014E   0BE3               M             DECFSZ      0X63,F
+014F   2???               M             GOTO        DECREV2
+0150   0BE1               M             DECFSZ      0X61,F
+0151   2???               M             GOTO        RECARGAV2
+0152   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+0153   0000               M             NOP                         ; LOS DE CALL
+0154   0000               M             NOP
+0155   0000               M             NOP
+0156   1608               M                 RS_ON
+                          M                 ;       LOW BYTE        
+0157   3006               M                 MOVLW           B'00000110'
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE 12
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0158   390F               M                 ANDLW           B'00001111'
+0159   0088               M                 MOVWF           PORTD
+015A   1208               M                 RS_OFF
+                          M                 ENABLE_ON
+015B   1688               M                 EN_ON
+015C   0000               M                 NOP
+015D   0000               M                 NOP
+015E   0000               M                 NOP
+015F   0000               M                 NOP
+0160   1288               M                 EN_OFF
+                          M                 SUBT2V          .8,.35          ; 1 ms
+  0000                    M             LOCAL       DECREV2,RECARGAV2
+0161   3008               M             MOVLW       .8
+0162   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+0163   3023               M             MOVLW       .35
+0164   00E2               M             MOVWF       0X62
+0165   0862               M RECARGAV2:  MOVF        0X62,W
+0166   00E3               M             MOVWF       0X63
+0167   0000               M DECREV2:    NOP
+0168   0000               M             NOP
+0169   0000               M             NOP
+016A   0000               M             NOP
+016B   0BE3               M             DECFSZ      0X63,F
+016C   2???               M             GOTO        DECREV2
+016D   0BE1               M             DECFSZ      0X61,F
+016E   2???               M             GOTO        RECARGAV2
+016F   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+0170   0000               M             NOP                         ; LOS DE CALL
+0171   0000               M             NOP
+0172   0000               M             NOP
+                      00102 ;       FIN DE LA INICIALIZACION
+                      00103                 
+                      00104 ;       COMIENZO DE ESCRITURA
+                      00105                 ;   FUNCTION SET
+                      00106                 ESCRIBIR_COM    B'00101100'
+                          M                 ;       HIGH BYTE
+0173   302C               M                 MOVLW           B'00101100'
+0174   0E00               M                 SWAPF           W,W
+0175   390F               M                 ANDLW           B'00001111'
+0176   0088               M                 MOVWF           LCD
+0177   1208               M                 RS_OFF
+                          M                 ENABLE_ON
+0178   1688               M                 EN_ON
+0179   0000               M                 NOP
+017A   0000               M                 NOP
+017B   0000               M                 NOP
+017C   0000               M                 NOP
+017D   1288               M                 EN_OFF
+                          M                 SUBT2V          .8,.35          ; 1 ms
+  0000                    M             LOCAL       DECREV2,RECARGAV2
+017E   3008               M             MOVLW       .8
+017F   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+0180   3023               M             MOVLW       .35
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE 13
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0181   00E2               M             MOVWF       0X62
+0182   0862               M RECARGAV2:  MOVF        0X62,W
+0183   00E3               M             MOVWF       0X63
+0184   0000               M DECREV2:    NOP
+0185   0000               M             NOP
+0186   0000               M             NOP
+0187   0000               M             NOP
+0188   0BE3               M             DECFSZ      0X63,F
+0189   2???               M             GOTO        DECREV2
+018A   0BE1               M             DECFSZ      0X61,F
+018B   2???               M             GOTO        RECARGAV2
+018C   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+018D   0000               M             NOP                         ; LOS DE CALL
+018E   0000               M             NOP
+018F   0000               M             NOP
+0190   1608               M                 RS_ON
+                          M                 ;       LOW BYTE        
+0191   302C               M                 MOVLW           B'00101100'
+0192   390F               M                 ANDLW           B'00001111'
+0193   0088               M                 MOVWF           PORTD
+0194   1208               M                 RS_OFF
+                          M                 ENABLE_ON
+0195   1688               M                 EN_ON
+0196   0000               M                 NOP
+0197   0000               M                 NOP
+0198   0000               M                 NOP
+0199   0000               M                 NOP
+019A   1288               M                 EN_OFF
+                          M                 SUBT2V          .8,.35          ; 1 ms
+  0000                    M             LOCAL       DECREV2,RECARGAV2
+019B   3008               M             MOVLW       .8
+019C   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+019D   3023               M             MOVLW       .35
+019E   00E2               M             MOVWF       0X62
+019F   0862               M RECARGAV2:  MOVF        0X62,W
+01A0   00E3               M             MOVWF       0X63
+01A1   0000               M DECREV2:    NOP
+01A2   0000               M             NOP
+01A3   0000               M             NOP
+01A4   0000               M             NOP
+01A5   0BE3               M             DECFSZ      0X63,F
+01A6   2???               M             GOTO        DECREV2
+01A7   0BE1               M             DECFSZ      0X61,F
+01A8   2???               M             GOTO        RECARGAV2
+01A9   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+01AA   0000               M             NOP                         ; LOS DE CALL
+01AB   0000               M             NOP
+01AC   0000               M             NOP
+                      00107                 ;   FUNCTION SET
+                      00108                 ESCRIBIR_COM    B'00101100'
+                          M                 ;       HIGH BYTE
+01AD   302C               M                 MOVLW           B'00101100'
+01AE   0E00               M                 SWAPF           W,W
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE 14
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+01AF   390F               M                 ANDLW           B'00001111'
+01B0   0088               M                 MOVWF           LCD
+01B1   1208               M                 RS_OFF
+                          M                 ENABLE_ON
+01B2   1688               M                 EN_ON
+01B3   0000               M                 NOP
+01B4   0000               M                 NOP
+01B5   0000               M                 NOP
+01B6   0000               M                 NOP
+01B7   1288               M                 EN_OFF
+                          M                 SUBT2V          .8,.35          ; 1 ms
+  0000                    M             LOCAL       DECREV2,RECARGAV2
+01B8   3008               M             MOVLW       .8
+01B9   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+01BA   3023               M             MOVLW       .35
+01BB   00E2               M             MOVWF       0X62
+01BC   0862               M RECARGAV2:  MOVF        0X62,W
+01BD   00E3               M             MOVWF       0X63
+01BE   0000               M DECREV2:    NOP
+01BF   0000               M             NOP
+01C0   0000               M             NOP
+01C1   0000               M             NOP
+01C2   0BE3               M             DECFSZ      0X63,F
+01C3   2???               M             GOTO        DECREV2
+01C4   0BE1               M             DECFSZ      0X61,F
+01C5   2???               M             GOTO        RECARGAV2
+01C6   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+01C7   0000               M             NOP                         ; LOS DE CALL
+01C8   0000               M             NOP
+01C9   0000               M             NOP
+01CA   1608               M                 RS_ON
+                          M                 ;       LOW BYTE        
+01CB   302C               M                 MOVLW           B'00101100'
+01CC   390F               M                 ANDLW           B'00001111'
+01CD   0088               M                 MOVWF           PORTD
+01CE   1208               M                 RS_OFF
+                          M                 ENABLE_ON
+01CF   1688               M                 EN_ON
+01D0   0000               M                 NOP
+01D1   0000               M                 NOP
+01D2   0000               M                 NOP
+01D3   0000               M                 NOP
+01D4   1288               M                 EN_OFF
+                          M                 SUBT2V          .8,.35          ; 1 ms
+  0000                    M             LOCAL       DECREV2,RECARGAV2
+01D5   3008               M             MOVLW       .8
+01D6   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+01D7   3023               M             MOVLW       .35
+01D8   00E2               M             MOVWF       0X62
+01D9   0862               M RECARGAV2:  MOVF        0X62,W
+01DA   00E3               M             MOVWF       0X63
+01DB   0000               M DECREV2:    NOP
+01DC   0000               M             NOP
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE 15
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+01DD   0000               M             NOP
+01DE   0000               M             NOP
+01DF   0BE3               M             DECFSZ      0X63,F
+01E0   2???               M             GOTO        DECREV2
+01E1   0BE1               M             DECFSZ      0X61,F
+01E2   2???               M             GOTO        RECARGAV2
+01E3   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+01E4   0000               M             NOP                         ; LOS DE CALL
+01E5   0000               M             NOP
+01E6   0000               M             NOP
+                      00109                 ;   DISPLAY ON
+                      00110                 ESCRIBIR_COM    B'00001000'
+                          M                 ;       HIGH BYTE
+01E7   3008               M                 MOVLW           B'00001000'
+01E8   0E00               M                 SWAPF           W,W
+01E9   390F               M                 ANDLW           B'00001111'
+01EA   0088               M                 MOVWF           LCD
+01EB   1208               M                 RS_OFF
+                          M                 ENABLE_ON
+01EC   1688               M                 EN_ON
+01ED   0000               M                 NOP
+01EE   0000               M                 NOP
+01EF   0000               M                 NOP
+01F0   0000               M                 NOP
+01F1   1288               M                 EN_OFF
+                          M                 SUBT2V          .8,.35          ; 1 ms
+  0000                    M             LOCAL       DECREV2,RECARGAV2
+01F2   3008               M             MOVLW       .8
+01F3   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+01F4   3023               M             MOVLW       .35
+01F5   00E2               M             MOVWF       0X62
+01F6   0862               M RECARGAV2:  MOVF        0X62,W
+01F7   00E3               M             MOVWF       0X63
+01F8   0000               M DECREV2:    NOP
+01F9   0000               M             NOP
+01FA   0000               M             NOP
+01FB   0000               M             NOP
+01FC   0BE3               M             DECFSZ      0X63,F
+01FD   2???               M             GOTO        DECREV2
+01FE   0BE1               M             DECFSZ      0X61,F
+01FF   2???               M             GOTO        RECARGAV2
+0200   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+0201   0000               M             NOP                         ; LOS DE CALL
+0202   0000               M             NOP
+0203   0000               M             NOP
+0204   1608               M                 RS_ON
+                          M                 ;       LOW BYTE        
+0205   3008               M                 MOVLW           B'00001000'
+0206   390F               M                 ANDLW           B'00001111'
+0207   0088               M                 MOVWF           PORTD
+0208   1208               M                 RS_OFF
+                          M                 ENABLE_ON
+0209   1688               M                 EN_ON
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE 16
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+020A   0000               M                 NOP
+020B   0000               M                 NOP
+020C   0000               M                 NOP
+020D   0000               M                 NOP
+020E   1288               M                 EN_OFF
+                          M                 SUBT2V          .8,.35          ; 1 ms
+  0000                    M             LOCAL       DECREV2,RECARGAV2
+020F   3008               M             MOVLW       .8
+0210   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+0211   3023               M             MOVLW       .35
+0212   00E2               M             MOVWF       0X62
+0213   0862               M RECARGAV2:  MOVF        0X62,W
+0214   00E3               M             MOVWF       0X63
+0215   0000               M DECREV2:    NOP
+0216   0000               M             NOP
+0217   0000               M             NOP
+0218   0000               M             NOP
+0219   0BE3               M             DECFSZ      0X63,F
+021A   2???               M             GOTO        DECREV2
+021B   0BE1               M             DECFSZ      0X61,F
+021C   2???               M             GOTO        RECARGAV2
+021D   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+021E   0000               M             NOP                         ; LOS DE CALL
+021F   0000               M             NOP
+0220   0000               M             NOP
+                      00111                 ;   MODE SET
+                      00112                 ESCRIBIR_COM    B'00000110'
+                          M                 ;       HIGH BYTE
+0221   3006               M                 MOVLW           B'00000110'
+0222   0E00               M                 SWAPF           W,W
+0223   390F               M                 ANDLW           B'00001111'
+0224   0088               M                 MOVWF           LCD
+0225   1208               M                 RS_OFF
+                          M                 ENABLE_ON
+0226   1688               M                 EN_ON
+0227   0000               M                 NOP
+0228   0000               M                 NOP
+0229   0000               M                 NOP
+022A   0000               M                 NOP
+022B   1288               M                 EN_OFF
+                          M                 SUBT2V          .8,.35          ; 1 ms
+  0000                    M             LOCAL       DECREV2,RECARGAV2
+022C   3008               M             MOVLW       .8
+022D   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+022E   3023               M             MOVLW       .35
+022F   00E2               M             MOVWF       0X62
+0230   0862               M RECARGAV2:  MOVF        0X62,W
+0231   00E3               M             MOVWF       0X63
+0232   0000               M DECREV2:    NOP
+0233   0000               M             NOP
+0234   0000               M             NOP
+0235   0000               M             NOP
+0236   0BE3               M             DECFSZ      0X63,F
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE 17
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0237   2???               M             GOTO        DECREV2
+0238   0BE1               M             DECFSZ      0X61,F
+0239   2???               M             GOTO        RECARGAV2
+023A   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+023B   0000               M             NOP                         ; LOS DE CALL
+023C   0000               M             NOP
+023D   0000               M             NOP
+023E   1608               M                 RS_ON
+                          M                 ;       LOW BYTE        
+023F   3006               M                 MOVLW           B'00000110'
+0240   390F               M                 ANDLW           B'00001111'
+0241   0088               M                 MOVWF           PORTD
+0242   1208               M                 RS_OFF
+                          M                 ENABLE_ON
+0243   1688               M                 EN_ON
+0244   0000               M                 NOP
+0245   0000               M                 NOP
+0246   0000               M                 NOP
+0247   0000               M                 NOP
+0248   1288               M                 EN_OFF
+                          M                 SUBT2V          .8,.35          ; 1 ms
+  0000                    M             LOCAL       DECREV2,RECARGAV2
+0249   3008               M             MOVLW       .8
+024A   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+024B   3023               M             MOVLW       .35
+024C   00E2               M             MOVWF       0X62
+024D   0862               M RECARGAV2:  MOVF        0X62,W
+024E   00E3               M             MOVWF       0X63
+024F   0000               M DECREV2:    NOP
+0250   0000               M             NOP
+0251   0000               M             NOP
+0252   0000               M             NOP
+0253   0BE3               M             DECFSZ      0X63,F
+0254   2???               M             GOTO        DECREV2
+0255   0BE1               M             DECFSZ      0X61,F
+0256   2???               M             GOTO        RECARGAV2
+0257   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+0258   0000               M             NOP                         ; LOS DE CALL
+0259   0000               M             NOP
+025A   0000               M             NOP
+                      00113                 
+                      00114                 ;   SE ESCRIBE EL CARACTER 'H'
+                      00115                 ESCRIBIR_CAR    'H'
+                          M                 ;       HIGH BYTE
+025B   3048               M                 MOVLW           'H'
+025C   0E00               M                 SWAPF           W,W
+025D   390F               M                 ANDLW           B'00001111'
+025E   0088               M                 MOVWF           LCD
+025F   1608               M                 RS_ON
+                          M                 ENABLE_ON
+0260   1688               M                 EN_ON
+0261   0000               M                 NOP
+0262   0000               M                 NOP
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE 18
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0263   0000               M                 NOP
+0264   0000               M                 NOP
+0265   1288               M                 EN_OFF
+                          M                 SUBT2V          .8,.35          ; 1 ms
+  0000                    M             LOCAL       DECREV2,RECARGAV2
+0266   3008               M             MOVLW       .8
+0267   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+0268   3023               M             MOVLW       .35
+0269   00E2               M             MOVWF       0X62
+026A   0862               M RECARGAV2:  MOVF        0X62,W
+026B   00E3               M             MOVWF       0X63
+026C   0000               M DECREV2:    NOP
+026D   0000               M             NOP
+026E   0000               M             NOP
+026F   0000               M             NOP
+0270   0BE3               M             DECFSZ      0X63,F
+0271   2???               M             GOTO        DECREV2
+0272   0BE1               M             DECFSZ      0X61,F
+0273   2???               M             GOTO        RECARGAV2
+0274   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+0275   0000               M             NOP                         ; LOS DE CALL
+0276   0000               M             NOP
+0277   0000               M             NOP
+0278   1208               M                 RS_OFF
+                          M                 
+                          M                 ;       LOW BYTE        
+0279   3048               M                 MOVLW           'H'
+027A   390F               M                 ANDLW           B'00001111'
+027B   0088               M                 MOVWF           PORTD
+027C   1608               M                 RS_ON
+                          M                 ENABLE_ON
+027D   1688               M                 EN_ON
+027E   0000               M                 NOP
+027F   0000               M                 NOP
+0280   0000               M                 NOP
+0281   0000               M                 NOP
+0282   1288               M                 EN_OFF
+                          M                 SUBT2V          .8,.35          ; 1 ms
+  0000                    M             LOCAL       DECREV2,RECARGAV2
+0283   3008               M             MOVLW       .8
+0284   00E1               M             MOVWF       0X61            ; VALOR DE MAYOR PESO EN ANIDACION
+0285   3023               M             MOVLW       .35
+0286   00E2               M             MOVWF       0X62
+0287   0862               M RECARGAV2:  MOVF        0X62,W
+0288   00E3               M             MOVWF       0X63
+0289   0000               M DECREV2:    NOP
+028A   0000               M             NOP
+028B   0000               M             NOP
+028C   0000               M             NOP
+028D   0BE3               M             DECFSZ      0X63,F
+028E   2???               M             GOTO        DECREV2
+028F   0BE1               M             DECFSZ      0X61,F
+0290   2???               M             GOTO        RECARGAV2
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE 19
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0291   0000               M             NOP                         ; PARA SIMULAR LOS CICLOS DE RETURN Y
+0292   0000               M             NOP                         ; LOS DE CALL
+0293   0000               M             NOP
+0294   0000               M             NOP
+0295   1208               M                 RS_OFF
+0296   2???           00116                 GOTO            $               
+                      00117                 
+3F31                  00118                 END
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE 20
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ACKDT                             00000005
+ACKEN                             00000004
+ACKSTAT                           00000006
+ADCON0                            0000001F
+ADCON1                            0000009F
+ADCS0                             00000006
+ADCS1                             00000007
+ADCS2                             00000006
+ADDEN                             00000003
+ADFM                              00000007
+ADIE                              00000006
+ADIF                              00000006
+ADON                              00000000
+ADRESH                            0000001E
+ADRESL                            0000009E
+AUXV2                             00000067
+AUXV3                             00000068
+BCLIE                             00000003
+BCLIF                             00000003
+BF                                00000000
+BRGH                              00000002
+C                                 00000000
+C1INV                             00000004
+C1OUT                             00000006
+C2INV                             00000005
+C2OUT                             00000007
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCP2CON                           0000001D
+CCP2IE                            00000000
+CCP2IF                            00000000
+CCP2M0                            00000000
+CCP2M1                            00000001
+CCP2M2                            00000002
+CCP2M3                            00000003
+CCP2X                             00000005
+CCP2Y                             00000004
+CCPR1                             00000015
+CCPR1H                            00000016
+CCPR1L                            00000015
+CCPR2                             0000001B
+CCPR2H                            0000001C
+CCPR2L                            0000001B
+CHS0                              00000003
+CHS1                              00000004
+CHS2                              00000005
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE 21
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+CIS                               00000003
+CKE                               00000006
+CKP                               00000004
+CM0                               00000000
+CM1                               00000001
+CM2                               00000002
+CMCON                             0000009C
+CMIE                              00000006
+CMIF                              00000006
+CREN                              00000004
+CSRC                              00000007
+CVR0                              00000000
+CVR1                              00000001
+CVR2                              00000002
+CVR3                              00000003
+CVRCON                            0000009D
+CVREN                             00000007
+CVROE                             00000006
+CVRR                              00000005
+D                                 00000005
+DATA_ADDRESS                      00000005
+DC                                00000001
+D_A                               00000005
+D_NOT_A                           00000005
+EEADR                             0000010D
+EEADRH                            0000010F
+EECON1                            0000018C
+EECON2                            0000018D
+EEDATA                            0000010C
+EEDATH                            0000010E
+EEIE                              00000004
+EEIF                              00000004
+EEPGD                             00000007
+ENABLE_ON                         
+EN_OFF                            BCF         PORTD,5
+EN_ON                             BSF         PORTD,5
+ESCRIBIR_CAR                      
+ESCRIBIR_COM                      
+F                                 00000001
+FERR                              00000002
+FSR                               00000004
+GCEN                              00000007
+GIE                               00000007
+GO                                00000002
+GO_DONE                           00000002
+GO_NOT_DONE                       00000002
+I                                 00000003
+I2C_DATA                          00000005
+I2C_READ                          00000002
+I2C_START                         00000003
+I2C_STOP                          00000004
+IBF                               00000007
+IBOV                              00000005
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE 22
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+INDF                              00000000
+INIT                              00000004
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+LCD                               PORTD
+NOT_A                             00000005
+NOT_ADDRESS                       00000005
+NOT_BO                            00000000
+NOT_BOR                           00000000
+NOT_DONE                          00000002
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_RC8                           00000006
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NOT_TX8                           00000006
+NOT_W                             00000002
+NOT_WRITE                         00000002
+OBF                               00000006
+OERR                              00000001
+OPTION_REG                        00000081
+P                                 00000004
+PCFG0                             00000000
+PCFG1                             00000001
+PCFG2                             00000002
+PCFG3                             00000003
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PEIE                              00000006
+PEN                               00000002
+PIE1                              0000008C
+PIE2                              0000008D
+PIR1                              0000000C
+PIR2                              0000000D
+PORTA                             00000005
+PORTB                             00000006
+PORTC                             00000007
+PORTD                             00000008
+PORTE                             00000009
+PR2                               00000092
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+PSPIE                             00000007
+PSPIF                             00000007
+PSPMODE                           00000004
+R                                 00000002
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE 23
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RA5                               00000005
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RC0                               00000000
+RC1                               00000001
+RC2                               00000002
+RC3                               00000003
+RC4                               00000004
+RC5                               00000005
+RC6                               00000006
+RC7                               00000007
+RC8_9                             00000006
+RC9                               00000006
+RCD8                              00000000
+RCEN                              00000003
+RCIE                              00000005
+RCIF                              00000005
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+RD0                               00000000
+RD1                               00000001
+RD2                               00000002
+RD3                               00000003
+RD4                               00000004
+RD5                               00000005
+RD6                               00000006
+RD7                               00000007
+RE0                               00000000
+RE1                               00000001
+RE2                               00000002
+READ_WRITE                        00000002
+RP0                               00000005
+RP1                               00000006
+RSEN                              00000001
+RS_OFF                            BCF         PORTD,4
+RS_ON                             BSF         PORTD,4
+RX9                               00000006
+RX9D                              00000000
+R_NOT_W                           00000002
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE 24
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+R_W                               00000002
+S                                 00000003
+SEN                               00000000
+SMP                               00000007
+SPBRG                             00000099
+SPEN                              00000007
+SREN                              00000005
+SSPADD                            00000093
+SSPBUF                            00000013
+SSPCON                            00000014
+SSPCON2                           00000091
+SSPEN                             00000005
+SSPIE                             00000003
+SSPIF                             00000003
+SSPM0                             00000000
+SSPM1                             00000001
+SSPM2                             00000002
+SSPM3                             00000003
+SSPOV                             00000006
+SSPSTAT                           00000094
+STATUS                            00000003
+SUBT1V                            
+SUBT2V                            
+SUBT3V                            
+SYNC                              00000004
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1INSYNC                          00000002
+T1OSCEN                           00000003
+T1SYNC                            00000002
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000012
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TMR1                              0000000E
+TMR1CS                            00000001
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE 25
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISA5                            00000005
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+TRISC                             00000087
+TRISC0                            00000000
+TRISC1                            00000001
+TRISC2                            00000002
+TRISC3                            00000003
+TRISC4                            00000004
+TRISC5                            00000005
+TRISC6                            00000006
+TRISC7                            00000007
+TRISD                             00000088
+TRISD0                            00000000
+TRISD1                            00000001
+TRISD2                            00000002
+TRISD3                            00000003
+TRISD4                            00000004
+TRISD5                            00000005
+TRISD6                            00000006
+TRISD7                            00000007
+TRISE                             00000089
+TRISE0                            00000000
+TRISE1                            00000001
+TRISE2                            00000002
+TRMT                              00000001
+TX8_9                             00000006
+TX9                               00000006
+TX9D                              00000000
+TXD8                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+TXSTA                             00000098
+UA                                00000001
+VAR1                              00000064
+MPASM 5.77  /HOME/VILL4IN/MPLABXPROJECTS/877   8-11-2022  14:20:39         PAGE 26
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+VAR2                              00000065
+VAR3                              00000066
+W                                 00000000
+WCOL                              00000007
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_.org_0_0296                      00000296
+_BODEN_OFF                        00003FBF
+_BODEN_ON                         00003FFF
+_BOREN_OFF                        00003FBF
+_BOREN_ON                         00003FFF
+_CONFIG                           00002007
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003EFF
+_CP_ALL                           00001FFF
+_CP_OFF                           00003FFF
+_CP_ON                            00001FFF
+_DEBUG_OFF                        00003FFF
+_DEBUG_ON                         000037FF
+_DEVID1                           00002006
+_FOSC_EXTRC                       00003FFF
+_FOSC_HS                          00003FFE
+_FOSC_LP                          00003FFC
+_FOSC_XT                          00003FFD
+_HS_OSC                           00003FFE
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_LP_OSC                           00003FFC
+_LVP_OFF                          00003F7F
+_LVP_ON                           00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC                           00003FFF
+_WDTE_OFF                         00003FFB
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_WRT_1FOURTH                      00003BFF
+_WRT_256                          00003DFF
+_WRT_HALF                         000039FF
+_WRT_OFF                          00003FFF
+_XT_OSC                           00003FFD
+__16F877A                         00000001
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     1 reported,     0 suppressed
+
+
